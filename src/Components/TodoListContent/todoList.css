@@ -1,0 +1,34 @@
+.todo-List {
+  display: grid;
+	 /* split content page to three parts */
+  grid-template-areas: "todo-Header"
+                       "todo-New"
+                       "todo-Listing"
+                       "button-Handler";
+
+  /* set up rows heights and column width */                     
+  grid-template-rows: repeat(6, 100px);
+  grid-template-columns: repeat(6, 1fr);
+  
+}
+
+/* set up span area for each section */
+.todo-Header {
+	background-color: beige;
+	grid-area: 1 / 1 / 2 / 7;
+}
+
+.todo-New {
+	background-color: skyblue;
+	grid-area: 2 / 1 / 3 / 7;
+}
+
+.todo-Listing {
+	background-color: beige;
+	grid-area: 3 / 1 / 6 / 7;
+}
+
+.button-Handler {
+	background-color: skyblue;
+	grid-area: 6 / 1 / 7 / 7;
+}
