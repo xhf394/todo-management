@@ -7,17 +7,39 @@ import todoList from "./todoList.css";
 
 
 class TodoList extends Component {
-  constructor() {
-  	super();
-
+  constructor(props) {
+  	super(props);
+  	//set initial state;
+  	this.state = {
+  		data: [],
+  	}
+    this.addTodo = this.addTodo.bind(this);
   }
+
+  //add new todo note handler
+  addTodo(val) {
+  	//assemble data
+  	const todo = {text: val}
+
+  	//update data
+  	this.state.data.push(todo);
+
+  	//update state
+  	this.setState({
+  		data: this.state.data,
+  	})
+  }
+
+
+
+
   render() {
     return (
       <div className="todo-List">
         <header className="todo-Header" > 
           todo-management 
         </header>
-        <AddNewNote />
+        <AddNewNote addTodo={this.addTodo}/>
         <TodoListing />
         <ButtonHandler />
       </div>
