@@ -40,7 +40,7 @@ class TodoList extends Component {
           todo-management 
         </header>
         <AddNewNote addTodo={this.addTodo}/>
-        <TodoListing />
+        <TodoListing todos={this.state.data} />
         <ButtonHandler />
       </div>
     );

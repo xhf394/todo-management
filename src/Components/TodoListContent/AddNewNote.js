@@ -19,6 +19,7 @@ const AddNewNote = ({addTodo}) => {
 
         <button onClick={() => {
         	addTodo(input.value);
+        	//initial value as null if no input;
         	input.value = null;
         }}> 
           
