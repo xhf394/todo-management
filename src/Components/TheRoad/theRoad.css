@@ -1,4 +1,12 @@
 .theRoad {
 	width: 500px;
 	margin:0 auto;
+	display: grid;
+    grid-template-rows: 60px minmax(auto, 300px) 60px;
+}
+
+.list {
+  display: grid;
+  align-content: start;
+  background-color: orange;
 }

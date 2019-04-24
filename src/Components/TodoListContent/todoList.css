@@ -3,10 +3,10 @@
   width: 500px;
   margin:0 auto;
 	 /* split content page to three parts */
-  grid-template-areas: "todo-Header"
+/*  grid-template-areas: "todo-Header"
                        "todo-New"
                        "todo-Listing"
-                       "button-Handler";
+                       "button-Handler";*/
 
   /* set up rows heights and column width */                     
   grid-template-rows: repeat(6, 1fr);

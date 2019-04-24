@@ -50,6 +50,36 @@ class Developer {
   	[key]: 'Robin',
   }
 
+
+  //example for binding
+  class ExplainBindingsComponent extends Component {
+  	constructor(){
+  		super();
+  		this.state = {
+  			list,
+  		}
+  		this.onClickMe = this.onClickMe.bind(this);
+  	}
+
+  	onClickMe() {
+  		console.log(this);
+  	}
+
+
+  	render() {
+  		return (
+  		<div>
+  		<button
+   		  onClick={this.onClickMe}
+   		  type='button'
+  		>
+         Click Me 
+  		</button>
+  		</div>
+  		)
+  	}
+  }
+
 class TheRoad extends Component {
 
   //constructor will be called only once when the component initializes
@@ -88,10 +118,10 @@ class TheRoad extends Component {
 
       <div className="theRoad">
       	<h2> {helloWorld}</h2>
-      	<div>
+      	<div className="list">
       	  {this.state.list.map(item => {
       		return (
-      		  <div key={item.objectID}>
+      		  <div key={item.objectID} className="list-Item">
       		    <span>
       		      <a href={item.url}> {item.title} </a>
       		    </span>
@@ -113,7 +143,8 @@ class TheRoad extends Component {
       		  </div>
       		  )
       	})}
-      	</div>  
+      	</div>
+      	<ExplainBindingsComponent />  
       </div>
     );
   }
