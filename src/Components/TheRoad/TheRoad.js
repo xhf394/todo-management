@@ -120,6 +120,11 @@ class TheRoad extends Component {
       	<h2> {helloWorld}</h2>
       	<div className="list">
       	  {this.state.list.map(item => {
+
+      	  	//define onClick event function 
+      	  	const onDismissHandler = () =>
+      	  	this.onDismiss(item.objectID);
+
       		return (
       		  <div key={item.objectID} className="list-Item">
       		    <span>
@@ -133,7 +138,7 @@ class TheRoad extends Component {
       		    //or bind it in the constructor
       		    >
       		      <button
-                    onClick={()=>this.onDismiss(item.objectID)}
+                    onClick={onDismissHandler}
                     type='button'
       		      >
       		      	Dismiss
