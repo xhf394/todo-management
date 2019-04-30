@@ -15,6 +15,7 @@ class Developer {
     }
 }
 
+
   //Array using for example	
   //add a array list for react related source
   //always use 'const' if the data strcuture won't change
@@ -46,9 +47,30 @@ class Developer {
 
   //computed property names examples
   const key = 'name';
-  const user = {
+  const user2 = {
   	[key]: 'Robin',
   }
+  
+  //destructuring
+
+  //objects 
+  const user = {
+    firstname: 'Robin',
+    lastname: 'Wieruch',
+  }  
+
+  const { 
+    firstname, 
+    lastname
+  } = user;
+  
+  //array
+  const users = ['David', 'Andrew', 'Robin'];
+  const [
+    userOne,
+    userTwo,
+    userThree
+    ] = users;
 
 
   //example for binding
@@ -80,6 +102,11 @@ class Developer {
   	}
   }
 
+//higher-order function example
+
+const isSearched = searchTerm => item => 
+  item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
 
 
 class TheRoad extends Component {
@@ -90,7 +117,8 @@ class TheRoad extends Component {
     this.state = {
     	//shorthand for list
     	list,
-    	searchTerm: '',
+      searchTerm: '',
+    	
     }
 
     //bind onDismiss to dismiss contents 
@@ -124,6 +152,8 @@ class TheRoad extends Component {
   render() {
   	  //start insert
       const helloWorld = 'Welcome to the Road to learn React';    
+      //destructure the local state
+      const { searchTerm, list } = this.state;
 
     return (
 
@@ -132,18 +162,19 @@ class TheRoad extends Component {
       	<form>
       	    <input 
       	      type="text"
+              value={searchTerm}
               onChange={this.onSearchChange}
       	    />
+      	 </form>
 
-      	  </form>
       	<div className="list">
-      	  {this.state.list.map(item => {
+      	  {this.state.list.filter(isSearched(searchTerm)).map(item => {
 
       	  	//define onClick event function 
       	  	const onDismissHandler = () =>
       	  	this.onDismiss(item.objectID);
 
-      		return (
+      		  return(
       		  <div key={item.objectID} className="list-Item">
       		    <span>
       		      <a href={item.url}> {item.title} </a>
@@ -163,8 +194,7 @@ class TheRoad extends Component {
       		      </button> 
       		    </div>  
       		  </div>
-      		  )
-      	})}
+      	)})}
       	</div>
       	<ExplainBindingsComponent />
  
