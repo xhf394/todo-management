@@ -80,6 +80,8 @@ class Developer {
   	}
   }
 
+
+
 class TheRoad extends Component {
 
   //constructor will be called only once when the component initializes
@@ -88,10 +90,12 @@ class TheRoad extends Component {
     this.state = {
     	//shorthand for list
     	list,
+    	searchTerm: '',
     }
 
     //bind onDismiss to dismiss contents 
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
   }
 
 
@@ -109,6 +113,13 @@ class TheRoad extends Component {
     }) 
   }
 
+  //form and interaction
+  onSearchChange(event){
+    this.setState({
+    	searchTerm: event.target.value
+    })
+  }
+
 
   render() {
   	  //start insert
@@ -118,6 +129,13 @@ class TheRoad extends Component {
 
       <div className="theRoad">
       	<h2> {helloWorld}</h2>
+      	<form>
+      	    <input 
+      	      type="text"
+              onChange={this.onSearchChange}
+      	    />
+
+      	  </form>
       	<div className="list">
       	  {this.state.list.map(item => {
 
@@ -143,13 +161,13 @@ class TheRoad extends Component {
       		      >
       		      	Dismiss
       		      </button> 
-      		    </div>
-      		 
+      		    </div>  
       		  </div>
       		  )
       	})}
       	</div>
-      	<ExplainBindingsComponent />  
+      	<ExplainBindingsComponent />
+ 
       </div>
     );
   }
