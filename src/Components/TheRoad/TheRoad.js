@@ -89,7 +89,7 @@ class Developer {
 
 
   	render() {
-  		return (
+  	  return (
   		<div>
   		<button
    		  onClick={this.onClickMe}
@@ -98,14 +98,90 @@ class Developer {
          Click Me 
   		</button>
   		</div>
-  		)
+  	  )
   	}
   }
 
 //higher-order function example
-
+/**/
 const isSearched = searchTerm => item => 
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+
+//Search Component use input to filter display table
+//with {children} to reuse this component 
+const Search = ({ value, onChange, children }) =>
+  <form>
+        {children}
+      	<input 
+      	  type="text"
+      	  //make uncontrolled component to controlled 
+          value={value}
+          onChange={onChange}
+      	/>
+   </form>
+
+//a resuable button component
+class Button extends Component {
+  render() {
+    const {
+      onClick,
+      className = '',
+      children,
+    } = this.props;
+
+    return (
+      <button
+        onClick={onClick}
+        className={className}
+        type='button'
+      >
+        {children}
+      </button> 
+      )
+  }
+}
+
+class Table extends Component {
+  render(){
+  	//pass state value
+  	const { list, onDismiss, searchTerm } = this.props;
+
+  	return(
+  	  <div className="list">
+      	{list.filter(isSearched(searchTerm)).map(item => {
+
+      	  //define onClick event function 
+      	  const onDismissHandler = () =>
+      	    onDismiss(item.objectID);
+
+      		return(
+      		  <div key={item.objectID} className="list-Item">
+      		    <span>
+      		      <a href={item.url}> {item.title} </a>
+      		    </span>
+      		    <span> {item.num_comments} </span>
+      		    <span> {item.author} </span>
+      		    <span> {item.points} </span>
+
+      		    <div
+      		    //use ()={} to manipulate data directly
+      		    //or bind it in the constructor
+      		    >
+      		      <Button
+                    onClick={onDismissHandler}
+      		      >
+      		      	Dismiss
+      		      </Button> 
+      		    </div>  
+      		  </div>
+      	    )
+      	  }
+      	)}
+      </div>	
+  	)
+  }	
+}
 
 
 
@@ -159,43 +235,19 @@ class TheRoad extends Component {
 
       <div className="theRoad">
       	<h2> {helloWorld}</h2>
-      	<form>
-      	    <input 
-      	      type="text"
-              value={searchTerm}
-              onChange={this.onSearchChange}
-      	    />
-      	 </form>
+      	<Search 
+          value={searchTerm}
+          onChange={this.onSearchChange}
+      	>
+      	  Search
+      	</Search>
+        
+        <Table 
+          list={list}
+          onDismiss={this.onDismiss}
+          searchTerm={searchTerm}
+        />
 
-      	<div className="list">
-      	  {this.state.list.filter(isSearched(searchTerm)).map(item => {
-
-      	  	//define onClick event function 
-      	  	const onDismissHandler = () =>
-      	  	this.onDismiss(item.objectID);
-
-      		  return(
-      		  <div key={item.objectID} className="list-Item">
-      		    <span>
-      		      <a href={item.url}> {item.title} </a>
-      		    </span>
-      		    <span> {item.author} </span>
-      		    <span> {item.points} </span>
-
-      		    <div
-      		    //use ()={} to manipulate data directly
-      		    //or bind it in the constructor
-      		    >
-      		      <button
-                    onClick={onDismissHandler}
-                    type='button'
-      		      >
-      		      	Dismiss
-      		      </button> 
-      		    </div>  
-      		  </div>
-      	)})}
-      	</div>
       	<ExplainBindingsComponent />
  
       </div>
