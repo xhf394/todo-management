@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './theRoad.css';
+import GettingRealWithAPIs from './GettingRealWithAPIs';
 
 
 class Developer {
@@ -239,7 +240,7 @@ class TheRoad extends Component {
         />
 
       	<ExplainBindingsComponent />
- 
+        <GettingRealWithAPIs />
       </div>
     );
   }
