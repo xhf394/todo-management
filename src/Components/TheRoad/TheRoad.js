@@ -122,25 +122,15 @@ const Search = ({ value, onChange, children }) =>
    </form>
 
 //a resuable button component
-class Button extends Component {
-  render() {
-    const {
-      onClick,
-      className = '',
-      children,
-    } = this.props;
+const Button = ({ onClick, className = '', children }) =>
+  <button
+    onClick={onClick}
+    className={className}
+    type='button'
+  >
+    {children}
+  </button>
 
-    return (
-      <button
-        onClick={onClick}
-        className={className}
-        type='button'
-      >
-        {children}
-      </button> 
-      )
-  }
-}
 
 class Table extends Component {
   render(){
