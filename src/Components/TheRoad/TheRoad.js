@@ -3,7 +3,11 @@ import './theRoad.css';
 import GettingRealWithAPIs from './GettingRealWithAPIs';
 
 
-class Developer {
+
+
+/**Example Area**/
+
+  class Developer {
 
 	//Pure class with no component, 
 	construction(firstname, lastname) {
@@ -14,9 +18,7 @@ class Developer {
     getName() {
     	return this.firstname + ' ' + this.lastname;
     }
-}
-
-
+  }
   //Array using for example	
   //add a array list for react related source
   //always use 'const' if the data strcuture won't change
@@ -103,6 +105,8 @@ class Developer {
   	}
   }
 
+/**Example End**/
+
 //higher-order function example
 /**/
 const isSearched = searchTerm => item => 
@@ -137,7 +141,7 @@ class Table extends Component {
   render(){
   	//pass state value
   	const { list, onDismiss, searchTerm } = this.props;
-
+    console.log(list);
   	return(
   	  <div className="list">
       	{list.filter(isSearched(searchTerm)).map(item => {
@@ -174,7 +178,12 @@ class Table extends Component {
   }	
 }
 
-
+//define API address
+const DEFAULT_QUERY = 'redux';
+//keep URL composition flexible
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
 
 class TheRoad extends Component {
 
@@ -183,16 +192,36 @@ class TheRoad extends Component {
   	super(props);
     this.state = {
     	//shorthand for list
-    	list,
-      searchTerm: '',
+      
+      result: null,
+      searchTerm: DEFAULT_QUERY,
     	
     }
+
+    //bind all methods
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
 
     //bind onDismiss to dismiss contents 
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
   }
+  
+  componentDidMount() {
+  	const { searchTerm } = this.state;
 
+  	fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+  	.then(response => response.json())
+  	.then(result => this.setSearchTopStories(result))
+  	.catch(error => error);
+
+  }
+  
+  //store target news array and re-render
+  setSearchTopStories(result) {
+    this.setState({ 
+      result,
+    });
+  }
 
   //define onDismiss handler
   onDismiss(id) {
@@ -200,11 +229,11 @@ class TheRoad extends Component {
     const isNotId = item => item.objectID !== id;
 
   	//pass it to filter method to create a new list
-    const updatedList = this.state.list.filter(isNotId);
+    const updatedHits = this.state.result.hits.filter(isNotId);
 
     //update list to updateList to re-render
     this.setState({
-    	list: updatedList,
+    	//list: updatedList,
     }) 
   }
 
@@ -214,13 +243,17 @@ class TheRoad extends Component {
     	searchTerm: event.target.value
     })
   }
-
+  
 
   render() {
   	  //start insert
       const helloWorld = 'Welcome to the Road to learn React';    
       //destructure the local state
-      const { searchTerm, list } = this.state;
+      const { searchTerm, result } = this.state;
+
+
+      //when render for the first time, prevent it from display anything
+      if(!result) {return null;} 
 
     return (
 
@@ -234,13 +267,13 @@ class TheRoad extends Component {
       	</Search>
         
         <Table 
-          list={list}
+          list={result.hits}
           onDismiss={this.onDismiss}
           searchTerm={searchTerm}
         />
 
       	<ExplainBindingsComponent />
-        <GettingRealWithAPIs />
+
       </div>
     );
   }
