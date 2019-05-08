@@ -234,7 +234,9 @@ class TheRoad extends Component {
     //update list to updateList to re-render
     this.setState({
     	//list: updatedList,
+    	result: {...this.state.result, hits: updatedHits},
     }) 
+    console.log(this.state.result);
   }
 
   //form and interaction
@@ -251,7 +253,7 @@ class TheRoad extends Component {
       //destructure the local state
       const { searchTerm, result } = this.state;
 
-
+      console.log(result);
       //when render for the first time, prevent it from display anything
       if(!result) {return null;} 
 
