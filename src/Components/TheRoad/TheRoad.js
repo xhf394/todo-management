@@ -115,15 +115,18 @@ const isSearched = searchTerm => item =>
 
 //Search Component use input to filter display table
 //with {children} to reuse this component 
-const Search = ({ value, onChange, children }) =>
+const Search = ({ value, onChange, onSubmit, children }) =>
   <form>
-        {children}
+        
       	<input 
       	  type="text"
       	  //make uncontrolled component to controlled 
           value={value}
           onChange={onChange}
       	/>
+      	<button type="submit">
+      	  {children}
+      	</button>
    </form>
 
 //a resuable button component
@@ -199,20 +202,33 @@ class TheRoad extends Component {
     }
 
     //bind all methods
-    this.setSearchTopStories = this.setSearchTopStories.bind(this);
 
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
+    this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     //bind onDismiss to dismiss contents 
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+
   }
   
-  componentDidMount() {
-  	const { searchTerm } = this.state;
+  /**fetch data --fetch data from server side and store in result object
+   * @param {string} target
+   * @return {object{}} 
+   */
+  fetchSearchTopStories(searchTerm) {
+  	//pass searchTerm to fetch data from server side
 
   	fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
   	.then(response => response.json())
   	.then(result => this.setSearchTopStories(result))
-  	.catch(error => error);
+  	.catch(error => error);    
+  }
+
+  componentDidMount() {
+  	const { searchTerm } = this.state;
+
+  	this.fetchSearchTopStories(searchTerm);
 
   }
   
@@ -246,6 +262,11 @@ class TheRoad extends Component {
     })
   }
   
+  onSearchSubmit(){
+    const { searchTerm } = this.state;
+
+    this.fetchSearchTopStories(searchTerm);
+  }
 
   render() {
   	  //start insert
@@ -255,7 +276,7 @@ class TheRoad extends Component {
 
       console.log(result);
       //when render for the first time, prevent it from display anything
-      if(!result) {return null;} 
+      //if(!result) {return null;} 
 
     return (
 
@@ -264,15 +285,19 @@ class TheRoad extends Component {
       	<Search 
           value={searchTerm}
           onChange={this.onSearchChange}
+          onSubmit={this.onSearchSubmit}
       	>
       	  Search
       	</Search>
         
-        <Table 
-          list={result.hits}
-          onDismiss={this.onDismiss}
-          searchTerm={searchTerm}
-        />
+        { result && 
+          <Table 
+            list={result.hits}
+            onDismiss={this.onDismiss}
+            searchTerm={searchTerm}
+          />
+        }
+
 
       	<ExplainBindingsComponent />
 
