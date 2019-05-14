@@ -108,7 +108,11 @@ import GettingRealWithAPIs from './GettingRealWithAPIs';
 /**Example End**/
 
 //higher-order function example
-/**/
+/**Search on client side and filter 
+ * @param {string} target
+ * @param {object{}} filter items
+ * @return {object{}} object with key words match search target 
+ */
 const isSearched = searchTerm => item => 
   item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
@@ -116,8 +120,7 @@ const isSearched = searchTerm => item =>
 //Search Component use input to filter display table
 //with {children} to reuse this component 
 const Search = ({ value, onChange, onSubmit, children }) =>
-  <form>
-        
+  <form onSubmit={onSubmit}>       
       	<input 
       	  type="text"
       	  //make uncontrolled component to controlled 
@@ -187,6 +190,7 @@ const DEFAULT_QUERY = 'redux';
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
+const PARAM_PAGE = 'page=';
 
 class TheRoad extends Component {
 
@@ -214,12 +218,12 @@ class TheRoad extends Component {
   
   /**fetch data --fetch data from server side and store in result object
    * @param {string} target
+   * @param {number} page
    * @return {object{}} 
    */
-  fetchSearchTopStories(searchTerm) {
+  fetchSearchTopStories(searchTerm, page = 0) {
   	//pass searchTerm to fetch data from server side
-
-  	fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+  	fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`)
   	.then(response => response.json())
   	.then(result => this.setSearchTopStories(result))
   	.catch(error => error);    
@@ -234,6 +238,8 @@ class TheRoad extends Component {
   
   //store target news array and re-render
   setSearchTopStories(result) {
+  	const { hits, page } = result;
+  	
     this.setState({ 
       result,
     });
@@ -262,10 +268,13 @@ class TheRoad extends Component {
     })
   }
   
-  onSearchSubmit(){
+  onSearchSubmit(event){
     const { searchTerm } = this.state;
 
     this.fetchSearchTopStories(searchTerm);
+    
+    event.preventDefault();
+
   }
 
   render() {
@@ -277,6 +286,8 @@ class TheRoad extends Component {
       console.log(result);
       //when render for the first time, prevent it from display anything
       //if(!result) {return null;} 
+      
+      const page = (result && result.page) || 0;
 
     return (
 
@@ -298,7 +309,11 @@ class TheRoad extends Component {
           />
         }
 
-
+        <div>
+          <Button onClick={()=> this.fetchSearchTopStories(searchTerm, page + 1)}>
+            More
+          </Button>
+        </div>
       	<ExplainBindingsComponent />
 
       </div>
