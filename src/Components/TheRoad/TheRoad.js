@@ -239,9 +239,19 @@ class TheRoad extends Component {
   //store target news array and re-render
   setSearchTopStories(result) {
   	const { hits, page } = result;
-  	
+
+  	//store old result hits
+    const oldHits = page !== 0
+      ? this.state.result.hits
+      : [];
+    
+    const updatedHits = [
+      ...oldHits,
+      ...hits
+    ]
+
     this.setState({ 
-      result,
+      result: {hits: updatedHits, page}
     });
   }
 
