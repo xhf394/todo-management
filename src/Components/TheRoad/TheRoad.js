@@ -200,7 +200,10 @@ class TheRoad extends Component {
     this.state = {
     	//shorthand for list
       
-      result: null,
+      results: null,
+      //temporary store each result
+      searchKey: '',
+      //fluctuant variable
       searchTerm: DEFAULT_QUERY,
     	
     }
@@ -231,6 +234,8 @@ class TheRoad extends Component {
 
   componentDidMount() {
   	const { searchTerm } = this.state;
+    
+    this.setState({ searchKey: searchTerm });
 
   	this.fetchSearchTopStories(searchTerm);
 
@@ -240,9 +245,13 @@ class TheRoad extends Component {
   setSearchTopStories(result) {
   	const { hits, page } = result;
 
+  	//access searchkey
+  	const {searchKey, results } = this.state; 
+    
+    console.log(searchKey);
   	//store old result hits
-    const oldHits = page !== 0
-      ? this.state.result.hits
+    const oldHits = results && results[searchKey]
+      ? results[searchKey].hits
       : [];
     
     const updatedHits = [
@@ -251,7 +260,10 @@ class TheRoad extends Component {
     ]
 
     this.setState({ 
-      result: {hits: updatedHits, page}
+      results: {
+      	...results,
+      	[searchKey]: {hits: updatedHits, page }
+      } 
     });
   }
 
@@ -259,14 +271,16 @@ class TheRoad extends Component {
   onDismiss(id) {
   	//set up rules to filter all in list except clicked item
     const isNotId = item => item.objectID !== id;
+    
+    const { searchKey, results } = this.state;
 
   	//pass it to filter method to create a new list
-    const updatedHits = this.state.result.hits.filter(isNotId);
+    const updatedHits = results[searchKey].hits.filter(isNotId);
 
     //update list to updateList to re-render
     this.setState({
     	//list: updatedList,
-    	result: {...this.state.result, hits: updatedHits},
+    	results: {...this.state.results, [searchKey]: {hits: updatedHits}},
     }) 
     console.log(this.state.result);
   }
@@ -281,6 +295,8 @@ class TheRoad extends Component {
   onSearchSubmit(event){
     const { searchTerm } = this.state;
 
+    this.setState({ searchKey: searchTerm });
+
     this.fetchSearchTopStories(searchTerm);
     
     event.preventDefault();
@@ -291,13 +307,23 @@ class TheRoad extends Component {
   	  //start insert
       const helloWorld = 'Welcome to the Road to learn React';    
       //destructure the local state
-      const { searchTerm, result } = this.state;
+      const { searchTerm, results, searchKey } = this.state;
 
-      console.log(result);
+      console.log(results);
       //when render for the first time, prevent it from display anything
       //if(!result) {return null;} 
       
-      const page = (result && result.page) || 0;
+      const page = (
+      	results && 
+      	results[searchKey] &&
+      	results[searchKey].page
+      	)|| 0;
+
+      const list = (
+      	results &&
+      	results[searchKey] &&
+      	results[searchKey].hits
+      	) || [];
 
     return (
 
@@ -311,16 +337,16 @@ class TheRoad extends Component {
       	  Search
       	</Search>
         
-        { result && 
+        { results && 
           <Table 
-            list={result.hits}
+            list={list}
             onDismiss={this.onDismiss}
             searchTerm={searchTerm}
           />
         }
 
         <div>
-          <Button onClick={()=> this.fetchSearchTopStories(searchTerm, page + 1)}>
+          <Button onClick={()=> this.fetchSearchTopStories(searchKey, page + 1)}>
             More
           </Button>
         </div>
