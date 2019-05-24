@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './theRoad.css';
 import GettingRealWithAPIs from './GettingRealWithAPIs';
 
@@ -7,103 +8,103 @@ import GettingRealWithAPIs from './GettingRealWithAPIs';
 
 /**Example Area**/
 
-  class Developer {
+ //  class Developer {
 
-	//Pure class with no component, 
-	construction(firstname, lastname) {
-		this.firstname = firstname;
-		this.lastname = lastname;
-	}
+	// //Pure class with no component, 
+	// construction(firstname, lastname) {
+	// 	this.firstname = firstname;
+	// 	this.lastname = lastname;
+	// }
     
-    getName() {
-    	return this.firstname + ' ' + this.lastname;
-    }
-  }
+ //    getName() {
+ //    	return this.firstname + ' ' + this.lastname;
+ //    }
+ //  }
   //Array using for example	
   //add a array list for react related source
   //always use 'const' if the data strcuture won't change
-  const list = [
-  	{
-  	  title: 'React',
-  	  url:'https://reactjs.org/',
-  	  author: 'Jordan Walke',
-  	  num_comments: 3,
-  	  points: 4,
-  	  objectID: 0,
-  },
-    {
-      title: 'Redux',
-      url: 'https://redux.js.org/',
-      author: 'Dan Abramov, Andrew Clark',
-      num_comments: 2,
-      points: 5,
-      objectID: 1,
-    }
-  ];
+  // const list = [
+  // 	{
+  // 	  title: 'React',
+  // 	  url:'https://reactjs.org/',
+  // 	  author: 'Jordan Walke',
+  // 	  num_comments: 3,
+  // 	  points: 4,
+  // 	  objectID: 0,
+  // },
+  //   {
+  //     title: 'Redux',
+  //     url: 'https://redux.js.org/',
+  //     author: 'Dan Abramov, Andrew Clark',
+  //     num_comments: 2,
+  //     points: 5,
+  //     objectID: 1,
+  //   }
+  // ];
   
   //Object Example
-  const userService = {
-  	getUserName(user) {
-  		return user.firstname + ' ' + user.lastname;
-  	},
-  }
+  // const userService = {
+  // 	getUserName(user) {
+  // 		return user.firstname + ' ' + user.lastname;
+  // 	},
+  // }
 
   //computed property names examples
-  const key = 'name';
-  const user2 = {
-  	[key]: 'Robin',
-  }
+  // const key = 'name';
+  // const user2 = {
+  // 	[key]: 'Robin',
+  // }
   
   //destructuring
 
   //objects 
-  const user = {
-    firstname: 'Robin',
-    lastname: 'Wieruch',
-  }  
+  // const user = {
+  //   firstname: 'Robin',
+  //   lastname: 'Wieruch',
+  // }  
 
-  const { 
-    firstname, 
-    lastname
-  } = user;
+  // const { 
+  //   firstname, 
+  //   lastname
+  // } = user;
   
-  //array
-  const users = ['David', 'Andrew', 'Robin'];
-  const [
-    userOne,
-    userTwo,
-    userThree
-    ] = users;
+  // //array
+  // const users = ['David', 'Andrew', 'Robin'];
+  // const [
+  //   userOne,
+  //   userTwo,
+  //   userThree
+  //   ] = users;
 
 
   //example for binding
-  class ExplainBindingsComponent extends Component {
-  	constructor(){
-  		super();
-  		this.state = {
-  			list,
-  		}
-  		this.onClickMe = this.onClickMe.bind(this);
-  	}
+  // class ExplainBindingsComponent extends Component {
+  // 	constructor(){
+  // 		super();
+  // 		this.state = {
+  // 			list,
+  // 		}
+  // 		this.onClickMe = this.onClickMe.bind(this);
+  // 	}
 
-  	onClickMe() {
-  		console.log(this);
-  	}
+  // 	onClickMe() {
+  // 		console.log(this);
+  // 	}
 
 
-  	render() {
-  	  return (
-  		<div>
-  		<button
-   		  onClick={this.onClickMe}
-   		  type='button'
-  		>
-         Click Me 
-  		</button>
-  		</div>
-  	  )
-  	}
-  }
+  // 	render() {
+  // 	  return (
+  // 		<div>
+  // 		<button
+  //  		  onClick={this.onClickMe}
+  //  		  type='button'
+  // 		>
+  //        Click Me 
+  // 		</button>
+  // 		</div>
+  // 	  )
+  // 	}
+  // }
 
 /**Example End**/
 
@@ -119,21 +120,45 @@ const isSearched = searchTerm => item =>
 
 //Search Component use input to filter display table
 //with {children} to reuse this component 
-const Search = ({ value, onChange, onSubmit, children }) =>
-  <form onSubmit={onSubmit}>       
-      	<input 
+class Search extends Component {
+  componentDidMount() {
+  	if(this.input) {
+  		this.input.focus();
+  	}
+  }
+    
+
+  render(){
+	const {
+	  value,
+	  onChange,
+	  onSubmit,
+	  children
+	} = this.props;
+
+	return(
+      <form onSubmit={onSubmit}>       
+        <input 
       	  type="text"
-      	  //make uncontrolled component to controlled 
+          //make uncontrolled component to controlled 
           value={value}
           onChange={onChange}
-      	/>
+          ref={el => this.input = el}
+        />
       	<button type="submit">
       	  {children}
       	</button>
-   </form>
+      </form>
+	)		
+  }
+}
 
 //a resuable button component
-const Button = ({ onClick, className = '', children }) =>
+const Button = ({ 
+	onClick, 
+	className, 
+	children
+	 }) =>
   <button
     onClick={onClick}
     className={className}
@@ -142,6 +167,15 @@ const Button = ({ onClick, className = '', children }) =>
     {children}
   </button>
 
+Button.propTypes = {
+	onClick: PropTypes.func.isRequired,
+	className: PropTypes.string,
+	children: PropTypes.node.isRequired,
+}
+
+Button.defaultProps = {
+	className: '',
+}
 
 class Table extends Component {
   render(){
@@ -184,6 +218,13 @@ class Table extends Component {
   }	
 }
 
+Table.propTypes = {
+	list: PropTypes.array.isRequired,
+	onDismiss: PropTypes.func.isRequired,
+	searchTerm: PropTypes.string,
+}
+
+
 //define API address
 const DEFAULT_QUERY = 'redux';
 //keep URL composition flexible
@@ -192,19 +233,29 @@ const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 const PARAM_PAGE = 'page=';
 
+//loading page message
+const Loading = () => 
+  <div> Loading ... </div>
+
 class TheRoad extends Component {
 
   //constructor will be called only once when the component initializes
   constructor(props) {
   	super(props);
     this.state = {
-    	//shorthand for list
+       //shorthand for list
       
       results: null,
       //temporary store each result
       searchKey: '',
       //fluctuant variable
       searchTerm: DEFAULT_QUERY,
+
+      //error handler
+      error: null,
+
+      //handle asynchronous as loading message
+      isLoading: false,
     	
     }
 
@@ -216,6 +267,7 @@ class TheRoad extends Component {
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
 
   }
   
@@ -226,10 +278,14 @@ class TheRoad extends Component {
    */
   fetchSearchTopStories(searchTerm, page = 0) {
   	//pass searchTerm to fetch data from server side
+
+  	//set loading status to true during fetch data
+    this.setState({isLoading: true})
+
   	fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`)
   	.then(response => response.json())
   	.then(result => this.setSearchTopStories(result))
-  	.catch(error => error);    
+  	.catch(error => this.setState({ error }));    
   }
 
   componentDidMount() {
@@ -246,7 +302,7 @@ class TheRoad extends Component {
   	const { hits, page } = result;
 
   	//access searchkey
-  	const {searchKey, results } = this.state; 
+  	const { searchKey, results } = this.state; 
     
     console.log(searchKey);
   	//store old result hits
@@ -263,8 +319,17 @@ class TheRoad extends Component {
       results: {
       	...results,
       	[searchKey]: {hits: updatedHits, page }
-      } 
+      },
+      isLoading: false 
     });
+  }
+
+  /**check if searchKey already in the list
+    *@param { string } searchkey
+    *@return { boolean } true means in the list
+    */
+  needsToSearchTopStories(searchTerm) {
+  	return !this.state.results[searchTerm];
   }
 
   //define onDismiss handler
@@ -274,15 +339,19 @@ class TheRoad extends Component {
     
     const { searchKey, results } = this.state;
 
+    const { hits, page } = results[searchKey];
+    
   	//pass it to filter method to create a new list
-    const updatedHits = results[searchKey].hits.filter(isNotId);
+    const updatedHits = hits.filter(isNotId);
 
     //update list to updateList to re-render
     this.setState({
     	//list: updatedList,
-    	results: {...this.state.results, [searchKey]: {hits: updatedHits}},
+    	results: {
+    		...results, 
+    		[searchKey]: {hits: updatedHits, page}},
     }) 
-    console.log(this.state.result);
+    console.log(this.state.results);
   }
 
   //form and interaction
@@ -296,8 +365,11 @@ class TheRoad extends Component {
     const { searchTerm } = this.state;
 
     this.setState({ searchKey: searchTerm });
-
-    this.fetchSearchTopStories(searchTerm);
+    
+    //prevent re-submit for the same searchKey
+    if(this.needsToSearchTopStories(searchTerm)) {
+    	this.fetchSearchTopStories(searchTerm);
+    }
     
     event.preventDefault();
 
@@ -307,7 +379,13 @@ class TheRoad extends Component {
   	  //start insert
       const helloWorld = 'Welcome to the Road to learn React';    
       //destructure the local state
-      const { searchTerm, results, searchKey } = this.state;
+      const { 
+      	searchTerm, 
+      	results, 
+      	searchKey,
+      	error,
+      	isLoading 
+      } = this.state;
 
       console.log(results);
       //when render for the first time, prevent it from display anything
@@ -324,6 +402,12 @@ class TheRoad extends Component {
       	results[searchKey] &&
       	results[searchKey].hits
       	) || [];
+    
+    //error handler 
+    //put it in a specific place;
+    if(error) {
+      return <p> Something went wrong. </p>
+    } 
 
     return (
 
@@ -346,11 +430,15 @@ class TheRoad extends Component {
         }
 
         <div>
-          <Button onClick={()=> this.fetchSearchTopStories(searchKey, page + 1)}>
-            More
-          </Button>
+          {isLoading 
+           ? <Loading />
+           : <Button 
+               onClick={()=> this.fetchSearchTopStories(searchKey, page + 1)}
+             >
+              More
+            </Button>
+          }
         </div>
-      	<ExplainBindingsComponent />
 
       </div>
     );
@@ -358,3 +446,10 @@ class TheRoad extends Component {
 }
 
 export default TheRoad;
+
+//prepare for testing
+export {
+  Button,
+  Search,
+  Table,	
+};

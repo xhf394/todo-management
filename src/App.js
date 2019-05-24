@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import TodoList from './Components/TodoListContent/TodoList';
-import TheRoad from './Components/TheRoad/TheRoad'
+import TheRoad from './Components/TheRoad/TheRoad';
+
 import './App.css';
 
 class App extends Component {
