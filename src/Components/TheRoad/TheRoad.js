@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './theRoad.css';
 import GettingRealWithAPIs from './GettingRealWithAPIs';
 
+import { sortBy } from 'lodash';
 
 
 
@@ -224,6 +225,15 @@ Table.propTypes = {
 	searchTerm: PropTypes.string,
 }
 
+//sort table
+
+const SORTS = {
+	//define a default list, not sorted
+	NONE: list => list,
+	TITLE: list => sortBy(list, 'title'),
+
+
+}
 
 //define API address
 const DEFAULT_QUERY = 'redux';
@@ -236,6 +246,18 @@ const PARAM_PAGE = 'page=';
 //loading page message
 const Loading = () => 
   <div> Loading ... </div>
+
+/**conditional render with loading...
+ *@param { component } specific component needs to render
+ *@return { component } loading or assigned component
+*/
+const WithLoading = ( Component ) => ({ isLoading, ...rest }) =>
+  isLoading
+    ? <Loading />
+    : <Component { ...rest } />
+
+//Button HOC with WithLoading
+const ButtonWithLoading = WithLoading( Button );    
 
 class TheRoad extends Component {
 
@@ -430,14 +452,12 @@ class TheRoad extends Component {
         }
 
         <div>
-          {isLoading 
-           ? <Loading />
-           : <Button 
-               onClick={()=> this.fetchSearchTopStories(searchKey, page + 1)}
-             >
-              More
-            </Button>
-          }
+          <ButtonWithLoading
+            isLoading={isLoading}
+            onClick={()=> this.fetchSearchTopStories(searchKey, page + 1)}
+          >
+            More
+          </ButtonWithLoading>  
         </div>
 
       </div>
