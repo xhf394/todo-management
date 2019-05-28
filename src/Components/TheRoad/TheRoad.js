@@ -181,7 +181,13 @@ Button.defaultProps = {
 class Table extends Component {
   render(){
   	//pass state value
-  	const { list, onDismiss, searchTerm } = this.props;
+  	const { 
+  		list, 
+  		onDismiss, 
+  		searchTerm,
+  		sortKey,
+  		onSort,
+  		 } = this.props;
     console.log(list);
   	return(
   	  <div className="list">
@@ -231,6 +237,9 @@ const SORTS = {
 	//define a default list, not sorted
 	NONE: list => list,
 	TITLE: list => sortBy(list, 'title'),
+	AUTHOR: list => sortBy(list, 'author'),
+	COMMENTS: list => sortBy(list, 'num_comments').reverse(),
+	POINTS: list => sortBy(list, 'points').reverse(),
 
 
 }
@@ -243,21 +252,28 @@ const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
 const PARAM_PAGE = 'page=';
 
-//loading page message
-const Loading = () => 
-  <div> Loading ... </div>
 
 /**conditional render with loading...
  *@param { component } specific component needs to render
  *@return { component } loading or assigned component
 */
-const WithLoading = ( Component ) => ({ isLoading, ...rest }) =>
-  isLoading
-    ? <Loading />
-    : <Component { ...rest } />
+const withEither = ( conditionalRenderingFn, EitherComponent ) => ( Component ) => (props) =>
+  conditionalRenderingFn(props)
+    ? <EitherComponent />
+    : <Component { ...props } />
+
+//loading page message
+const LoadingIndicator = () => 
+  <div> 
+    <p>Loading ... </p>
+  </div>
+
+//loading Conditional Fn
+const isLoadingConditionFn = (props) => props.isLoading;
 
 //Button HOC with WithLoading
-const ButtonWithLoading = WithLoading( Button );    
+const ButtonWithLoadingOne = withEither( isLoadingConditionFn, LoadingIndicator );
+const ButtonWithLoading = ButtonWithLoadingOne( Button );    
 
 class TheRoad extends Component {
 
@@ -278,6 +294,8 @@ class TheRoad extends Component {
 
       //handle asynchronous as loading message
       isLoading: false,
+
+      sortKey: 'NONE',
     	
     }
 
@@ -290,6 +308,7 @@ class TheRoad extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
+    this.onSort = this.onSort
 
   }
   
@@ -397,6 +416,10 @@ class TheRoad extends Component {
 
   }
 
+  onSort(sortKey) {
+  	this.setState({ sortKey });
+  }
+
   render() {
   	  //start insert
       const helloWorld = 'Welcome to the Road to learn React';    
@@ -406,7 +429,8 @@ class TheRoad extends Component {
       	results, 
       	searchKey,
       	error,
-      	isLoading 
+      	isLoading,
+      	sortKey,
       } = this.state;
 
       console.log(results);
@@ -448,6 +472,8 @@ class TheRoad extends Component {
             list={list}
             onDismiss={this.onDismiss}
             searchTerm={searchTerm}
+            sortKey={sortKey}
+            onSort={this.onSort}
           />
         }
 
