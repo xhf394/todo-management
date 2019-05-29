@@ -178,6 +178,10 @@ Button.defaultProps = {
 	className: '',
 }
 
+//resuable sort button
+
+
+
 class Table extends Component {
   render(){
   	//pass state value
@@ -191,7 +195,7 @@ class Table extends Component {
     console.log(list);
   	return(
   	  <div className="list">
-      	{list.filter(isSearched(searchTerm)).map(item => {
+      	{SORTS[sortKey](list).filter(isSearched(searchTerm)).map(item => {
 
       	  //define onClick event function 
       	  const onDismissHandler = () =>
