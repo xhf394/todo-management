@@ -179,7 +179,12 @@ Button.defaultProps = {
 }
 
 //resuable sort button
-
+const Sort = ({ sortKey, onSort, children }) =>
+  <Button
+    onClick={() => onSort(sortKey)}
+  >
+    {children}
+  </Button>  
 
 
 class Table extends Component {
@@ -195,6 +200,49 @@ class Table extends Component {
     console.log(list);
   	return(
   	  <div className="list">
+        <div>
+          <span>
+            <Sort
+              sortKey={'TITLE'}
+              onSort={onSort}
+            >
+              Title
+            </Sort>
+          </span>
+          <span>
+            <Sort
+              sortKey={'AUTHOR'}
+              onSort={onSort}
+            >
+              Author
+            </Sort>
+          </span>
+          <span>
+            <Sort
+              sortKey={'COMMENTS'}
+              onSort={onSort}
+            >
+              Comments
+            </Sort>
+          </span>
+          <span>
+            <Sort
+              sortKey={'COMMENTS'}
+              onSort={onSort}
+            >
+              Points
+            </Sort>
+          </span>
+          <span>
+            <Sort
+              sortKey={'COMMENTS'}
+              onSort={onSort}
+              >
+              Archive
+            </Sort>
+          </span>
+        </div>
+
       	{SORTS[sortKey](list).filter(isSearched(searchTerm)).map(item => {
 
       	  //define onClick event function 
@@ -236,6 +284,8 @@ Table.propTypes = {
 }
 
 //sort table
+
+
 
 const SORTS = {
 	//define a default list, not sorted
@@ -312,7 +362,7 @@ class TheRoad extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
-    this.onSort = this.onSort
+    this.onSort = this.onSort.bind(this);
 
   }
   
