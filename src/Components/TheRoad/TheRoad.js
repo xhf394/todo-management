@@ -196,8 +196,15 @@ class Table extends Component {
   		searchTerm,
   		sortKey,
   		onSort,
+  		isSortReverse
   		 } = this.props;
     console.log(list);
+
+    const sortedList = SORTS[sortKey](list);
+    const reverseSortedList = isSortReverse
+      ? sortedList.reverse()
+      : sortedList;
+
   	return(
   	  <div className="list">
         <div>
@@ -205,6 +212,7 @@ class Table extends Component {
             <Sort
               sortKey={'TITLE'}
               onSort={onSort}
+              activeSortKey={sortKey}
             >
               Title
             </Sort>
@@ -213,6 +221,7 @@ class Table extends Component {
             <Sort
               sortKey={'AUTHOR'}
               onSort={onSort}
+              activeSortKey={sortKey}
             >
               Author
             </Sort>
@@ -221,29 +230,26 @@ class Table extends Component {
             <Sort
               sortKey={'COMMENTS'}
               onSort={onSort}
+              activeSortKey={sortKey}
             >
               Comments
             </Sort>
           </span>
           <span>
             <Sort
-              sortKey={'COMMENTS'}
+              sortKey={'POINTS'}
               onSort={onSort}
+              activeSortKey={sortKey}
             >
               Points
             </Sort>
           </span>
           <span>
-            <Sort
-              sortKey={'COMMENTS'}
-              onSort={onSort}
-              >
-              Archive
-            </Sort>
+           Archive
           </span>
         </div>
 
-      	{SORTS[sortKey](list).filter(isSearched(searchTerm)).map(item => {
+      	{reverseSortedList.filter(isSearched(searchTerm)).map(item => {
 
       	  //define onClick event function 
       	  const onDismissHandler = () =>
@@ -350,6 +356,8 @@ class TheRoad extends Component {
       isLoading: false,
 
       sortKey: 'NONE',
+
+      isSortReverse: false,
     	
     }
 
@@ -471,7 +479,12 @@ class TheRoad extends Component {
   }
 
   onSort(sortKey) {
-  	this.setState({ sortKey });
+    
+    //define isSortReverse true or false
+    const isSortReverse = sortKey === this.state.sortKey &&
+      !this.state.isSortReverse;
+
+  	this.setState({ sortKey, isSortReverse });
   }
 
   render() {
@@ -485,6 +498,7 @@ class TheRoad extends Component {
       	error,
       	isLoading,
       	sortKey,
+      	isSortReverse,
       } = this.state;
 
       console.log(results);
@@ -528,6 +542,7 @@ class TheRoad extends Component {
             searchTerm={searchTerm}
             sortKey={sortKey}
             onSort={this.onSort}
+            isSortReverse={isSortReverse}
           />
         }
 
