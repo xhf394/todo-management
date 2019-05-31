@@ -197,16 +197,42 @@ const Sort = ({ sortKey, onSort, activeSortKey, children }) => {
 }
 
 class Table extends Component {
+  //lifting state
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      sortKey: 'NONE',
+      isSortReverse: false,
+    };
+
+    //re-bind method
+    this.onSort = this.onSort.bind(this);
+  }
+
+   onSort(sortKey) {
+    
+    //define isSortReverse true or false
+    const isSortReverse = sortKey === this.state.sortKey &&
+      !this.state.isSortReverse;
+
+    this.setState({ sortKey, isSortReverse });
+  }
+
   render(){
   	//pass state value
   	const { 
   		list, 
   		onDismiss, 
   		searchTerm,
-  		sortKey,
-  		onSort,
-  		isSortReverse
+  		
   		 } = this.props;
+
+    const {
+      sortKey,
+      isSortReverse
+    } = this.state;
+
     console.log(list);
 
     const sortedList = SORTS[sortKey](list);
@@ -220,7 +246,7 @@ class Table extends Component {
           <span>
             <Sort
               sortKey={'TITLE'}
-              onSort={onSort}
+              onSort={this.onSort}
               activeSortKey={sortKey}
             >
               Title
@@ -229,7 +255,7 @@ class Table extends Component {
           <span>
             <Sort
               sortKey={'AUTHOR'}
-              onSort={onSort}
+              onSort={this.onSort}
               activeSortKey={sortKey}
             >
               Author
@@ -238,7 +264,7 @@ class Table extends Component {
           <span>
             <Sort
               sortKey={'COMMENTS'}
-              onSort={onSort}
+              onSort={this.onSort}
               activeSortKey={sortKey}
             >
               Comments
@@ -247,7 +273,7 @@ class Table extends Component {
           <span>
             <Sort
               sortKey={'POINTS'}
-              onSort={onSort}
+              onSort={this.onSort}
               activeSortKey={sortKey}
             >
               Points
@@ -363,10 +389,6 @@ class TheRoad extends Component {
 
       //handle asynchronous as loading message
       isLoading: false,
-
-      sortKey: 'NONE',
-
-      isSortReverse: false,
     	
     }
 
@@ -379,7 +401,6 @@ class TheRoad extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
-    this.onSort = this.onSort.bind(this);
 
   }
   
@@ -487,15 +508,6 @@ class TheRoad extends Component {
 
   }
 
-  onSort(sortKey) {
-    
-    //define isSortReverse true or false
-    const isSortReverse = sortKey === this.state.sortKey &&
-      !this.state.isSortReverse;
-
-  	this.setState({ sortKey, isSortReverse });
-  }
-
   render() {
   	  //start insert
       const helloWorld = 'Welcome to the Road to learn React';    
@@ -506,8 +518,6 @@ class TheRoad extends Component {
       	searchKey,
       	error,
       	isLoading,
-      	sortKey,
-      	isSortReverse,
       } = this.state;
 
       console.log(results);
@@ -549,9 +559,6 @@ class TheRoad extends Component {
             list={list}
             onDismiss={this.onDismiss}
             searchTerm={searchTerm}
-            sortKey={sortKey}
-            onSort={this.onSort}
-            isSortReverse={isSortReverse}
           />
         }
 
