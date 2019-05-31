@@ -179,13 +179,22 @@ Button.defaultProps = {
 }
 
 //resuable sort button
-const Sort = ({ sortKey, onSort, children }) =>
-  <Button
-    onClick={() => onSort(sortKey)}
-  >
-    {children}
-  </Button>  
+const Sort = ({ sortKey, onSort, activeSortKey, children }) => {
+  const sortClass = [];
 
+  if(sortKey === activeSortKey) {
+  	sortClass.push('button-active');
+  }
+  
+  return(
+    <Button
+      onClick={() => onSort(sortKey)}
+      className={sortClass.join(' ')}
+    >
+      {children}
+    </Button>  
+  )
+}
 
 class Table extends Component {
   render(){
