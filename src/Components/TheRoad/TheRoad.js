@@ -368,7 +368,36 @@ const isLoadingConditionFn = (props) => props.isLoading;
 
 //Button HOC with WithLoading
 const ButtonWithLoadingOne = withEither( isLoadingConditionFn, LoadingIndicator );
-const ButtonWithLoading = ButtonWithLoadingOne( Button );    
+const ButtonWithLoading = ButtonWithLoadingOne( Button ); 
+
+//extract updatesearch data function
+//give specific arguments
+const updateSearchTopStoriesState = ( hits, page ) =>
+  ( prevState ) => {
+    //access searchkey
+    const { searchKey, results } = prevState;
+    
+    console.log(searchKey);
+      //store old result hits
+    const oldHits = results && results[searchKey]
+      ? results[searchKey].hits
+      : [];
+    
+    //update hits with ES6 operator
+    const updatedHits = [
+      ...oldHits,
+      ...hits
+    ];
+
+    return{
+      results: {
+        ...results,
+        [searchKey]: { hits: updatedHits, page } 
+      },
+      isLoading: false
+    };
+
+  } 
 
 class TheRoad extends Component {
 
@@ -433,28 +462,9 @@ class TheRoad extends Component {
   //store target news array and re-render
   setSearchTopStories(result) {
   	const { hits, page } = result;
-
   	//access searchkey
-  	const { searchKey, results } = this.state; 
-    
-    console.log(searchKey);
-  	//store old result hits
-    const oldHits = results && results[searchKey]
-      ? results[searchKey].hits
-      : [];
-    
-    const updatedHits = [
-      ...oldHits,
-      ...hits
-    ]
-
-    this.setState({ 
-      results: {
-      	...results,
-      	[searchKey]: {hits: updatedHits, page }
-      },
-      isLoading: false 
-    });
+  	// const { searchKey, results } = this.state; 
+    this.setState(updateSearchTopStoriesState(hits, page));
   }
 
   /**check if searchKey already in the list
