@@ -2,16 +2,45 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TodoList from './Components/TodoListContent/TodoList';
 import TheRoad from './Components/TheRoad/TheRoad';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import './App.css';
+
+const routes = [
+  {
+  	path: '/',
+  	exact: true,
+  	main: () => <TodoList />  
+  },
+  {
+  	path: '/theRoad',
+  	main: () => <TheRoad />
+  }
+  ];
 
 const App = () => (
 
   <div className='App'>
     <Router>
-      <TodoList />
-      <TheRoad />
+      <nav>
+        <ul>
+          <li>
+            <Link to='/'>Todo Management </Link>
+          </li>
+          <li>
+            <Link to='/theRoad'>The Road </Link>
+          </li>
+        </ul>
+      </nav>    
+      <div>
+      {routes.map((route, index) => (
+         <Route
+           key={index}
+           path={route.path}
+           exact={route.exact}
+           component={route.main}
+      	/>))}
+      </div>
     </Router>
   </div>	
  
