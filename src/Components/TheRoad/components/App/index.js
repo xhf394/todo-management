@@ -4,5 +4,4 @@ import {
 	PATH_SEARCH,
 	PARAM_SEARCH,
 	PARAM_PAGE,
-} from '../../constants/index.js';
-
+} from '../../constants';
