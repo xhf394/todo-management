@@ -357,6 +357,7 @@ const withEither = ( conditionalRenderingFn, EitherComponent ) => ( Component ) 
     ? <EitherComponent />
     : <Component { ...props } />
 
+
 //loading page message
 const LoadingIndicator = () => 
   <div> 
