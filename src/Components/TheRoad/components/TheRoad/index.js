@@ -41,14 +41,28 @@ class TheRoad extends Component {
     }
   }
 
-  componentDidMount(){
-  	//the first time to fetch DATA
-  	const { searchTerm } = this.state;
+  // componentDidMount(){
+  // 	//the first time to fetch DATA
+  // 	const { searchTerm } = this.state;
     
-    axios(`${PATH_BASE}${PATH_SEARCH}?
-      ${PARAM_SEARCH}${searchTerm}`)
-    .then(result => this.setState(results: result))
-    .catch(error => console.log(error));
+  //   axios(`${PATH_BASE}${PATH_SEARCH}?
+  //     ${PARAM_SEARCH}${searchTerm}`)
+  //   .then(result => this.setState(results: result))
+  //   .catch(error => console.log(error));
     
+  // }
+
+  render() {
+    <div>
+      <Search>
+        Search
+      </Search>
+      <Table />
+      <MoreButton>
+        More
+      </MoreButton>
+
+    </div>
   }
+
 }
