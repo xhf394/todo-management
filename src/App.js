@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TodoList from './Components/TodoListContent/TodoList';
 import TheRoad from './Components/TheRoad/TheRoad';
+import { ReactComponentRefactor } from './Components/ReactComponentRefactor';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import './App.css';
@@ -15,6 +16,10 @@ const routes = [
   {
   	path: '/theRoad',
   	main: () => <TheRoad />
+  },
+  {
+  	path: '/ReactComponentRefactor',
+  	main: () => <ReactComponentRefactor />
   }
   ];
 
@@ -29,6 +34,9 @@ const App = () => (
           </li>
           <li>
             <Link to='/theRoad'>The Road </Link>
+          </li>
+          <li>
+            <Link to='/ReactComponentRefactor'> ReactComponentRefactor </Link>
           </li>
         </ul>
       </nav>    
