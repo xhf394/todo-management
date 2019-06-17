@@ -18,10 +18,11 @@ class ReactComponentRefactor extends Component {
   		//default fetch data, fluctuant variable, interacte with form
   		searchTerm: DEFAULT_QUERY,
   		//store fetch data
-  		results: null,
- 
+  		results: null, 
   		//set for page conditional rendering
   		isLoading: false,
+      //temporary store each result
+      searchKey: '',
   	}
     
     //bind all methods;
@@ -32,7 +33,7 @@ class ReactComponentRefactor extends Component {
   componentDidMount() {
   	//pass searchTerm as argument to fetch API;
   	const { searchTerm } = this.state;
-
+    
   	this.fetchTopStories(searchTerm);
   }
 
