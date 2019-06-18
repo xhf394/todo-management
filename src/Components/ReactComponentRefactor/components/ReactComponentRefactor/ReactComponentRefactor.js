@@ -24,6 +24,12 @@ const updateTopStoriesState = ( hits, page ) =>
       ? results[searchKey].hits
       : [];
 
+    //update results hits with new data;
+    const updatedHits = [
+      ...oldHits,
+      ...hits,
+    ]  
+
   }
 
 class ReactComponentRefactor extends Component {
