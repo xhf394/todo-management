@@ -31,7 +31,7 @@ const updateTopStoriesState = ( hits, page ) =>
     ];
 
     //do not change result data structure
-    //only adjust updates
+    //only adjust updates in result state
     return {
       results: {
         ...results,
@@ -48,12 +48,12 @@ class ReactComponentRefactor extends Component {
   	super(props);
 
   	this.state = {
-  		//default fetch data, fluctuant variable, interacte with form
-  		searchTerm: DEFAULT_QUERY,
-  		//store fetch data
-  		results: null, 
-  		//set for page conditional rendering
-  		isLoading: false,
+  	  //default fetch data, fluctuant variable, interacte with form
+  	  searchTerm: DEFAULT_QUERY,
+  	  //store fetched data
+  	  results: null, 
+  	  //set for page conditional rendering
+  	  isLoading: false,
       //temporary store each result
       searchKey: '',
   	}
