@@ -28,7 +28,18 @@ const updateTopStoriesState = ( hits, page ) =>
     const updatedHits = [
       ...oldHits,
       ...hits,
-    ]  
+    ];
+
+    //do not change result data structure
+    //only adjust updates
+    return {
+      results: {
+        ...results,
+        [searchKey]: { hits: updatedHits, page }
+      },
+    //set data, complete loading
+      isLoading: false,
+    };  
 
   }
 
