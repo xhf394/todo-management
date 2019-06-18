@@ -80,7 +80,7 @@ class ReactComponentRefactor extends Component {
     this.setState({isLoading: true});
     
     axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`)
-      .then(result => console.log( result.data ))
+      .then(result => this.setTopStories( result.data ))
       .catch(error => console.log( error ));  
   }
   
@@ -88,7 +88,8 @@ class ReactComponentRefactor extends Component {
   setTopStories(result) {
     //extract necessary data
     const { hits, page } = result;
-
+    
+    console.log( result );
     //pass hits and page to update method
     //use prev state in setState to avoid stale state
     //use HOF to decoupling
@@ -100,6 +101,8 @@ class ReactComponentRefactor extends Component {
 
 
   render() {
+    
+    console.log( this.state.results );
 
   	return (
   	  <div>
