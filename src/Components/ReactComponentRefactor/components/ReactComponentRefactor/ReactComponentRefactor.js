@@ -10,6 +10,7 @@ import {
   PARAM_PAGE	
 } from '../../constants';
 
+import { Search } from '../Search';
 
 //update results state for rendering
 const updateTopStoriesState = ( hits, page ) =>
@@ -61,6 +62,9 @@ class ReactComponentRefactor extends Component {
     //bind all methods;
     this.fetchTopStories = this.fetchTopStories.bind(this);
     this.setTopStories = this.setTopStories.bind(this);
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.needsToFetchStories = this.needsToFetchStories.bind(this);
   }
 
   componentDidMount() {
@@ -96,6 +100,30 @@ class ReactComponentRefactor extends Component {
     this.setState(updateTopStoriesState( hits, page ));
   }
 
+  //handle input value 
+  onSearchChange(event){
+    this.setState({
+      searchTerm: event.target.value,
+    })
+  }
+
+  //submit input data with button/press enter
+  onSearchSubmit(event){
+    //set searchKey before fetch data
+    const { searchTerm } = this.state;    
+    this.setState({searchKey: searchTerm});
+
+    if( this.needsToFetchStories(searchTerm)) {
+      this.fetchTopStories( searchTerm );
+    }
+    
+    event.preventDefault();
+  }
+
+  //check if specific API already fetched
+  needsToFetchStories(searchTerm) {
+    return !this.state.results[searchTerm];
+  }
 
 
 
@@ -103,10 +131,20 @@ class ReactComponentRefactor extends Component {
   render() {
     
     console.log( this.state.results );
+    const { 
+      searchTerm,
+    } = this.state;
 
   	return (
   	  <div>
   	    <h1>This is the refactor version </h1>
+        <Search
+          onChange={this.onSearchChange}
+          onSubmit={this.onSearchSubmit}
+          value={searchTerm}
+        >
+          Search
+        </Search>   
   	  </div>
   	)
     

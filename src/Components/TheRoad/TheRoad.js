@@ -470,7 +470,7 @@ class TheRoad extends Component {
 
   /**check if searchKey already in the list
     *@param { string } searchkey
-    *@return { boolean } true means in the list
+    *@return { boolean } true means not in the list
     */
   needsToSearchTopStories(searchTerm) {
   	return !this.state.results[searchTerm];
