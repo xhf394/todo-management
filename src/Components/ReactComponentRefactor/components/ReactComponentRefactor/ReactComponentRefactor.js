@@ -129,6 +129,7 @@ class ReactComponentRefactor extends Component {
   }
   
   onDismiss(id) {
+    
     //condition statement;
     //not selected, turn true;
     const isNotDismissId = item => item.objectID !== id;
@@ -148,9 +149,8 @@ class ReactComponentRefactor extends Component {
 
     this.setState({
       ...results,
-      [searchKey]: {hits: updateHits, page}
+      [searchKey]: {hits: updatedHits, page}
     })
-
   }
 
 
@@ -176,6 +176,7 @@ class ReactComponentRefactor extends Component {
       results[searchKey].hits
     ) || [];
 
+
     return (
   	  <div>
   	    <h1>This is the refactor version </h1>
@@ -190,6 +191,7 @@ class ReactComponentRefactor extends Component {
         {results &&
           <Table 
             list={list}
+            onDismiss={this.onDismiss}
           />
         }   
   	  </div>
