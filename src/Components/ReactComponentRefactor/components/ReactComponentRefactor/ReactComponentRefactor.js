@@ -11,6 +11,7 @@ import {
 } from '../../constants';
 
 import { Search } from '../Search';
+import { Table } from '../Table';
 
 //update results state for rendering
 const updateTopStoriesState = ( hits, page ) =>
@@ -65,6 +66,7 @@ class ReactComponentRefactor extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToFetchStories = this.needsToFetchStories.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   componentDidMount() {
@@ -117,6 +119,7 @@ class ReactComponentRefactor extends Component {
       this.fetchTopStories( searchTerm );
     }
     
+    //prevent page refresh
     event.preventDefault();
   }
 
@@ -124,18 +127,56 @@ class ReactComponentRefactor extends Component {
   needsToFetchStories(searchTerm) {
     return !this.state.results[searchTerm];
   }
+  
+  onDismiss(id) {
+    //condition statement;
+    //not selected, turn true;
+    const isNotDismissId = item => item.objectID !== id;
+    
+    //pass data;
+    const {
+      searchKey,
+      results,
+    } = this.state;
 
+    const {
+      hits,
+      page 
+    } = results[searchKey];
+
+    const updatedHits = hits.filter(isNotDismissId);
+
+    this.setState({
+      ...results,
+      [searchKey]: {hits: updateHits, page}
+    })
+
+  }
 
 
 
   render() {
     
     console.log( this.state.results );
+
+
+
+
+    //pass all necessary data from state for using
     const { 
       searchTerm,
+      results,
+      searchKey,
     } = this.state;
+    
+    //exclude null and loading status for rendering list
+  	const list = (
+      results &&
+      results[searchKey] &&
+      results[searchKey].hits
+    ) || [];
 
-  	return (
+    return (
   	  <div>
   	    <h1>This is the refactor version </h1>
         <Search
@@ -144,10 +185,15 @@ class ReactComponentRefactor extends Component {
           value={searchTerm}
         >
           Search
-        </Search>   
+        </Search>
+        
+        {results &&
+          <Table 
+            list={list}
+          />
+        }   
   	  </div>
-  	)
-    
+  	)    
   }
 }
 
