@@ -65,7 +65,7 @@ class Table extends Component {
     const reverseSortList = isSortReverse
       ? sortedList.reverse()
       : sortedList;
- 
+    console.log(sortedList.filter(isSearched(searchTerm)));
 	return (
 	  <div> 
 	    <h3> Table </h3>

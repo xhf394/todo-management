@@ -1,10 +1,10 @@
 import Button from './Button';
 import SortButton from './SortButton';
-import MoreButton from './MoreButton';
+import MoreButtonWithConditionalRendering from './MoreButtonWithConditionalRendering';
 
 
 export { 
   Button,
   SortButton,
-  MoreButton,
+  MoreButtonWithConditionalRendering,
 };

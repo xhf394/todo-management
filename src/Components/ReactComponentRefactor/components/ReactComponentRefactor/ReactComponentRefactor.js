@@ -12,7 +12,7 @@ import {
 
 import { Search } from '../Search';
 import { Table } from '../Table';
-import { MoreButton } from '../Button';
+import { MoreButtonWithConditionalRendering } from '../Button';
 
 //update results state for rendering
 const updateTopStoriesState = ( hits, page ) =>
@@ -169,6 +169,7 @@ class ReactComponentRefactor extends Component {
       searchTerm,
       results,
       searchKey,
+      isLoading,
     } = this.state;
     
     //exclude null and loading status for rendering list
@@ -199,9 +200,12 @@ class ReactComponentRefactor extends Component {
             searchTerm={searchTerm}
           />
         }
-        <MoreButton>
+        <MoreButtonWithConditionalRendering
+          list={list}
+          isLoading={isLoading}    
+        >
           More
-        </MoreButton>   
+        </MoreButtonWithConditionalRendering>   
   	  </div>
   	)    
   }
