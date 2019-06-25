@@ -129,7 +129,7 @@ class ReactComponentRefactor extends Component {
   }
   
   onDismiss(id) {
-    
+
     //condition statement;
     //not selected, turn true;
     const isNotDismissId = item => item.objectID !== id;
@@ -144,12 +144,17 @@ class ReactComponentRefactor extends Component {
       hits,
       page 
     } = results[searchKey];
+    
+    console.log(id);
 
     const updatedHits = hits.filter(isNotDismissId);
+    console.log(updatedHits);
 
     this.setState({
-      ...results,
-      [searchKey]: {hits: updatedHits, page}
+      results: {
+        ...results,
+        [searchKey]: {hits: updatedHits, page}
+      }
     })
   }
 
@@ -158,10 +163,6 @@ class ReactComponentRefactor extends Component {
   render() {
     
     console.log( this.state.results );
-
-
-
-
     //pass all necessary data from state for using
     const { 
       searchTerm,
