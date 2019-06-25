@@ -12,6 +12,7 @@ import {
 
 import { Search } from '../Search';
 import { Table } from '../Table';
+import { MoreButton } from '../Button';
 
 //update results state for rendering
 const updateTopStoriesState = ( hits, page ) =>
@@ -190,11 +191,17 @@ class ReactComponentRefactor extends Component {
         </Search>
         
         {results &&
+         results[searchKey] &&
+         results[searchKey].hits && 
           <Table 
             list={list}
             onDismiss={this.onDismiss}
+            searchTerm={searchTerm}
           />
-        }   
+        }
+        <MoreButton>
+          More
+        </MoreButton>   
   	  </div>
   	)    
   }

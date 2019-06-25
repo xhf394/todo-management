@@ -3,6 +3,7 @@ import { Button, SortButton } from '../Button';
 import { sortBy } from 'lodash';
 
 
+//a list of Fn used to sort list
 const SORTS = {
   //A default list should be defined, not sorted
   NONE: list => list,
@@ -12,12 +13,20 @@ const SORTS = {
   POINTS: list => sortBy(list, 'points').reverse(),	
 };
 
+//search in displayed list
+const isSearched = ( searchTerm ) => item =>
+  { 
+    //exclude title = null;
+    if( item.title === null) return false; 
+    return item.title.toLowerCase().includes( searchTerm.toLowerCase() );
+  }
+
 
 class Table extends Component {
   constructor(props) {
   	super(props);
     this.state = ({
-      isSortReversed: false,
+      isSortReverse: false,
       sortKey: 'NONE',	
     })
 
@@ -26,13 +35,13 @@ class Table extends Component {
   
   onSort(sortKey) {
     
-    const isSortReversed = sortKey === this.state.sortKey 
-      && !this.state.isSortReversed;
+    const isSortReverse = sortKey === this.state.sortKey && 
+    !this.state.isSortReverse;
 
     //pass sortKey to table 
     this.setState({ 
       sortKey,
-      isSortReversed,
+      isSortReverse,
     });
   }
 
@@ -40,17 +49,23 @@ class Table extends Component {
   render() {
   	const {
   	  list,
-  	  onDismiss,	
+  	  onDismiss,
+      searchTerm	
   	} = this.props;
     
     const {
-      isSortReversed,
+      isSortReverse,
       sortKey,	
     } = this.state;
 
-    const sortedList = SORTS[sortKey](list);    
+    //pass list to sort Fn
+    const sortedList = SORTS[sortKey](list)
+    
+    //define if reverse
+    const reverseSortList = isSortReverse
+      ? sortedList.reverse()
+      : sortedList;
  
-
 	return (
 	  <div> 
 	    <h3> Table </h3>
@@ -58,31 +73,35 @@ class Table extends Component {
 	      <SortButton
             onSort={this.onSort}
             sortKey={'TITLE'}
+            activeSortKey={sortKey}
 	      >
 	        Title
 	      </SortButton>
 	      <SortButton
             onSort={this.onSort}
             sortKey={'COMMENTS'}
+            activeSortKey={sortKey}
 	      >
 	        Comments
 	      </SortButton>
           <SortButton
             onSort={this.onSort}
             sortKey={'AUTHOR'}
+            activeSortKey={sortKey}
           >
             Author
           </SortButton>
           <SortButton
             onSort={this.onSort}
             sortKey={'POINTS'}
+            activeSortKey={sortKey}
           >
             Points
           </SortButton>    
 	    </div>
 
 	    <div>
-	      {sortedList.map(item => 
+	      {sortedList.filter(isSearched(searchTerm)).map(item => 
 	      	
 	      	  <div key={item.objectID} >
 	      	    <span>

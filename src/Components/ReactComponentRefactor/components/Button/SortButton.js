@@ -3,14 +3,25 @@ import { Button } from '../Button';
 
 const Sort = ({
 	onSort,
-	sortKey, 
+	sortKey,
+	activeSortKey, 
 	children
-}) =>
-  <Button
-    onClick={() => onSort(sortKey)}
-    sortKey={sortKey}
-  >
-    {children}
-  </Button>
-
+}) => {
+  const sortStyleClass = ['button-primary','button-inline'];
+  
+  //add active style when sortKey = activeKey;
+  if( sortKey === activeSortKey ) {
+  	sortStyleClass.push('button-active')
+  }
+   
+  return(
+    <Button
+      onClick={() => onSort(sortKey)}
+      sortKey={sortKey}
+      className={sortStyleClass.join(' ')}
+    >
+      {children}
+    </Button>
+  )
+}
 export default Sort; 

@@ -1,0 +1,13 @@
+
+/**SORT TABLE active button style **/
+.button-active {
+  color: red;
+}
+
+.button-primary {
+  background-color: green;	
+}
+
+.button-inline {
+  font-weight: bold;	
+}
