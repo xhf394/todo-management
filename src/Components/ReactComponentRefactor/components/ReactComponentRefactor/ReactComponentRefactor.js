@@ -178,7 +178,12 @@ class ReactComponentRefactor extends Component {
       results[searchKey] &&
       results[searchKey].hits
     ) || [];
-
+    
+    const page = (
+      results &&
+      results[searchKey] &&
+      results[searchKey].page
+    ) || 0;
 
     return (
   	  <div>
@@ -202,10 +207,12 @@ class ReactComponentRefactor extends Component {
         }
         <MoreButtonWithConditionalRendering
           list={list}
-          isLoading={isLoading}    
+          isLoading={isLoading}
+          onClick={() => this.fetchTopStories(searchKey, page+1)}
+          searchTerm={searchTerm}    
         >
           More
-        </MoreButtonWithConditionalRendering>   
+        </MoreButtonWithConditionalRendering> 
   	  </div>
   	)    
   }

@@ -28,7 +28,7 @@ const withMaybe = ( conditionalRenderingFn ) => ( Component ) => ( props ) =>
 const isLoadingConditionalFn = (props) => props.isLoading;
 
 //Empty Message Component Condition
-const isEmptyConditionalFn = (props) => !props.list.filter(isSearched);
+const isEmptyConditionalFn = (props) => !props.list.filter(isSearched(props.searchTerm)).length;
 
 //null
 const nullConditionFn = (props) => !props.list;
@@ -46,23 +46,12 @@ const EmptyMessage = () =>
     <p> Nothing to show. </p>
   </div>
 
-const MoreButton = ({
-  props, 
-  children
-}) =>
-  {
-  	return(
-      <Button>
-        {children}
-      </Button>
-  	)
-  }
 
   const MoreButtonWithNull = withMaybe(nullConditionFn);
-  const MoreButtonWithLoading = MoreButtonWithNull(withEither(isLoadingConditionalFn, Loading));
-  const MoreButtonWithEmpty = MoreButtonWithLoading(withEither(isEmptyConditionalFn, EmptyMessage));
+  const MoreButtonWithLoading = withEither(isLoadingConditionalFn, Loading);
+  const MoreButtonWithEmpty = withEither(isEmptyConditionalFn, EmptyMessage);
 
-  const MoreButtonWithConditionalRendering = MoreButtonWithEmpty( Button );
+  const MoreButtonWithConditionalRendering = MoreButtonWithLoading(MoreButtonWithEmpty(MoreButtonWithNull( Button )));
 
 
 
