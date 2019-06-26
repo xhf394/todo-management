@@ -55,4 +55,4 @@ const EmptyMessage = () =>
 
 
 
-  export default MoreButtonWithConditionalRendering;
+  export { MoreButtonWithConditionalRendering };
