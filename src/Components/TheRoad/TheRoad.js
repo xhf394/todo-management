@@ -458,6 +458,9 @@ class TheRoad extends Component {
 
   	this.fetchSearchTopStories(searchTerm);
 
+    fetch(`https://data.nma.gov.au/object?text=sydney&media=*&offset=20&limit=10&apikey=uc4kpQ6G4ggFUKWchm8qli6PX5rP752L`)
+    .then(response => response.json())
+    .then(result => console.log(result));
   }
   
   //store target news array and re-render
