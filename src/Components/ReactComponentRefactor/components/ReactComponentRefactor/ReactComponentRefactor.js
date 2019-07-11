@@ -46,6 +46,16 @@ const updateTopStoriesState = ( hits, page ) =>
 
   }
 
+  //update results state for rendering
+  const updateTopNASAStoriesState = ( items, metadata, page ) =>
+    (prevState) => {
+      //access prev searchKey as object key;
+      //access prev results for updating;
+      const { searchKeyText, resultsNASA } = prevState;
+
+      
+    }
+
 class ReactComponentRefactor extends Component {
   constructor(props) {
   	super(props);
@@ -59,6 +69,18 @@ class ReactComponentRefactor extends Component {
   	  isLoading: false,
       //temporary store each result
       searchKey: '',
+
+      //store fetched data list
+      resultsNASA: null,
+      //while getting data
+      isLoadingNASA: false,
+      //default fetch data, fluctuant variable, 
+      searchText: 'earth',
+      //temporary store each result
+      searchKeyText: '',
+      //initial page = 1;
+      page: 1,
+
   	}
     
     //bind all methods;
@@ -68,6 +90,11 @@ class ReactComponentRefactor extends Component {
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToFetchStories = this.needsToFetchStories.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
+
+    //bind all methods NASA;
+    this.fetchTopNASAStories = this.fetchTopNASAStories.bind(this);
+    this.setTopNASAStories = this.setTopNASAStories.bind(this);
+
   }
 
   componentDidMount() {
@@ -78,7 +105,37 @@ class ReactComponentRefactor extends Component {
     this.setState({ searchKey: searchTerm });
 
   	this.fetchTopStories(searchTerm);
+    
+    const { searchText, page } = this.state;
+
+    //temporary store searchTerm
+    this.setState({ searchKeyText: searchText });
+
+    this.fetchTopNASAStories( searchText, page );
   }
+
+  //fetch data with API
+  fetchTopNASAStories(searchText, page ){
+    //when fetch data, set loading as true;
+    this.setState({isLoadingNASA: true});
+
+    //fetch data
+    axios(`https://images-api.nasa.gov/search?q=${searchText}&media_type=image&page=${page}`)
+      .then(result => this.setTopNASAStories( result.data.collection, page ))
+      .catch(error => console.log( error )); 
+  }
+  
+  setTopNASAStories(result, page) {
+    console.log(result);
+    console.log(page);
+    const {items, metadata } = result;
+    
+    console.log(items);
+    console.log(metadata);
+
+    this.setState(updateTopNASAStoriesState(items, metadata, page ));
+  }
+
 
   //fetch data with API
   //pass initial page number 0;
@@ -90,7 +147,8 @@ class ReactComponentRefactor extends Component {
       .then(result => this.setTopStories( result.data ))
       .catch(error => console.log( error ));  
   }
-  
+
+
   //store fetched data and ready for render
   setTopStories(result) {
     //extract necessary data

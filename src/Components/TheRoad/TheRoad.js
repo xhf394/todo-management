@@ -242,48 +242,6 @@ class Table extends Component {
 
   	return(
   	  <div className="list">
-        <div>
-          <span>
-            <Sort
-              sortKey={'TITLE'}
-              onSort={this.onSort}
-              activeSortKey={sortKey}
-            >
-              Title
-            </Sort>
-          </span>
-          <span>
-            <Sort
-              sortKey={'AUTHOR'}
-              onSort={this.onSort}
-              activeSortKey={sortKey}
-            >
-              Author
-            </Sort>
-          </span>
-          <span>
-            <Sort
-              sortKey={'COMMENTS'}
-              onSort={this.onSort}
-              activeSortKey={sortKey}
-            >
-              Comments
-            </Sort>
-          </span>
-          <span>
-            <Sort
-              sortKey={'POINTS'}
-              onSort={this.onSort}
-              activeSortKey={sortKey}
-            >
-              Points
-            </Sort>
-          </span>
-          <span>
-           Archive
-          </span>
-        </div>
-
       	{reverseSortedList.filter(isSearched(searchTerm)).map(item => {
 
       	  //define onClick event function 
@@ -458,9 +416,9 @@ class TheRoad extends Component {
 
   	this.fetchSearchTopStories(searchTerm);
 
-    fetch(`https://data.nma.gov.au/object?text=sydney&media=*&offset=20&limit=10&apikey=uc4kpQ6G4ggFUKWchm8qli6PX5rP752L`)
+    fetch(`https://images-api.nasa.gov/search?q=earth&media_type=image&page=1`)
     .then(response => response.json())
-    .then(result => console.log(result));
+    .then(result => console.log(result.collection));
   }
   
   //store target news array and re-render
@@ -524,7 +482,7 @@ class TheRoad extends Component {
 
   render() {
   	  //start insert
-      const helloWorld = 'Welcome to the Road to learn React';    
+      const helloWorld = 'SEARCH FOR BEAUTIFUL PICTURES';    
       //destructure the local state
       const { 
       	searchTerm, 
