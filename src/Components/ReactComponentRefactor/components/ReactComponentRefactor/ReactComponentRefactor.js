@@ -67,7 +67,9 @@ const updateTopStoriesState = ( hits, page ) =>
         ...listSpliceForUpdating,
       ];
 
-      //updating page
+      //updating page when original list is empty
+      //do not change result data structure
+      //only adjust updates in result state
       if(!items.length) {
         page = page + 1;
   
@@ -75,8 +77,8 @@ const updateTopStoriesState = ( hits, page ) =>
           resultsNASA: {
             ...resultsNASA,
             [searchKeyText]: {
-              items: updatedList,
-              itemsOriginal: items, 
+              itemsForRendering: updatedList,
+              items, 
               page,
               metadata, 
             }
@@ -92,8 +94,8 @@ const updateTopStoriesState = ( hits, page ) =>
           resultsNASA: {
             ...resultsNASA,
             [searchKeyText]: {
-              items: updatedList,
-              itemsOriginal: items, 
+              itemsForRendering: updatedList,
+              items, 
               page,
               metadata, 
             }
@@ -157,11 +159,13 @@ class ReactComponentRefactor extends Component {
 
   	this.fetchTopStories(searchTerm);
     
+    //pass searchText as an argument to fetch API; 
     const { searchText, page } = this.state;
 
     //temporary store searchTerm
     this.setState({ searchKeyText: searchText });
-
+    
+    //pass variable to api
     this.fetchTopNASAStories( searchText, page );
   }
 
@@ -169,6 +173,8 @@ class ReactComponentRefactor extends Component {
   fetchTopNASAStories(searchText, page ){
     //when fetch data, set loading as true;
     this.setState({isLoadingNASA: true});
+
+    const { resultsNASA } = this.state;
     
     //fetch data under condition
     if( this.state.isAddingPageNASA ) {
@@ -178,7 +184,7 @@ class ReactComponentRefactor extends Component {
     }
 
     if( !this.state.isAddingPageNASA ) {
-  
+      this.setTopNASAStories( resultsNASA, page)
     }
   }
   
