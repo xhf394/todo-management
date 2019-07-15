@@ -51,8 +51,57 @@ const updateTopStoriesState = ( hits, page ) =>
     (prevState) => {
       //access prev searchKey as object key;
       //access prev results for updating;
-      const { searchKeyText, resultsNASA } = prevState;
+      const { searchKeyText, resultsNASA, isAddingPageNASA } = prevState;
 
+      //split items list to render;
+      const listSpliceForUpdating  = items.splice(0, 50);
+      
+      //get old hits
+      const oldList = resultsNASA && resultsNASA[searchKeyText]
+        ? resultsNASA[searchKeyText].itemsForRendering
+        : [];
+
+      //update results hits with new data
+      const updatedList = [
+        ...oldList,
+        ...listSpliceForUpdating,
+      ];
+
+      //updating page
+      if(!items.length) {
+        page = page + 1;
+  
+        return {
+          resultsNASA: {
+            ...resultsNASA,
+            [searchKeyText]: {
+              items: updatedList,
+              itemsOriginal: items, 
+              page,
+              metadata, 
+            }
+          },
+          isLoadingNASA: false,
+          isAddingPageNASA: true,
+        }
+      }
+
+      //not updating page, set adding page to false
+      if( items.length ) {
+        return {
+          resultsNASA: {
+            ...resultsNASA,
+            [searchKeyText]: {
+              items: updatedList,
+              itemsOriginal: items, 
+              page,
+              metadata, 
+            }
+          },
+          isLoadingNASA: false,
+          isAddingPageNASA: false,
+        }
+      }
       
     }
 
@@ -80,6 +129,8 @@ class ReactComponentRefactor extends Component {
       searchKeyText: '',
       //initial page = 1;
       page: 1,
+      //if adding page number
+      isAddingPageNASA: true,
 
   	}
     
@@ -118,11 +169,17 @@ class ReactComponentRefactor extends Component {
   fetchTopNASAStories(searchText, page ){
     //when fetch data, set loading as true;
     this.setState({isLoadingNASA: true});
+    
+    //fetch data under condition
+    if( this.state.isAddingPageNASA ) {
+      axios(`https://images-api.nasa.gov/search?q=${searchText}&media_type=image&page=${page}`)
+        .then(result => this.setTopNASAStories( result.data.collection, page ))
+        .catch(error => console.log( error )); 
+    }
 
-    //fetch data
-    axios(`https://images-api.nasa.gov/search?q=${searchText}&media_type=image&page=${page}`)
-      .then(result => this.setTopNASAStories( result.data.collection, page ))
-      .catch(error => console.log( error )); 
+    if( !this.state.isAddingPageNASA ) {
+  
+    }
   }
   
   setTopNASAStories(result, page) {
