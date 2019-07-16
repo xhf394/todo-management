@@ -126,7 +126,7 @@ class ReactComponentRefactor extends Component {
       //while getting data
       isLoadingNASA: false,
       //default fetch data, fluctuant variable, 
-      searchText: 'earth',
+      searchText: 'star',
       //temporary store each result
       searchKeyText: '',
       //initial page = 1;
@@ -137,8 +137,6 @@ class ReactComponentRefactor extends Component {
   	}
     
     //bind all methods;
-    this.fetchTopStories = this.fetchTopStories.bind(this);
-    this.setTopStories = this.setTopStories.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToFetchStories = this.needsToFetchStories.bind(this);
@@ -151,13 +149,13 @@ class ReactComponentRefactor extends Component {
   }
 
   componentDidMount() {
-  	//pass searchTerm as an argument to fetch API;
-  	const { searchTerm } = this.state;
+  	// //pass searchTerm as an argument to fetch API;
+  	// const { searchTerm } = this.state;
     
-    //temporary store searchTerm
-    this.setState({ searchKey: searchTerm });
+   //  //temporary store searchTerm
+   //  this.setState({ searchKey: searchTerm });
 
-  	this.fetchTopStories(searchTerm);
+  	// this.fetchTopStories(searchTerm);
     
     //pass searchText as an argument to fetch API; 
     const { searchText, page } = this.state;
@@ -202,32 +200,32 @@ class ReactComponentRefactor extends Component {
 
   //fetch data with API
   //pass initial page number 0;
-  fetchTopStories(searchTerm, page = 0) {
-    //when fetch data, set loading as true;
-    this.setState({isLoading: true});
+  // fetchTopStories(searchTerm, page = 0) {
+  //   //when fetch data, set loading as true;
+  //   this.setState({isLoading: true});
     
-    axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`)
-      .then(result => this.setTopStories( result.data ))
-      .catch(error => console.log( error ));  
-  }
+  //   axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`)
+  //     .then(result => this.setTopStories( result.data ))
+  //     .catch(error => console.log( error ));  
+  // }
 
 
   //store fetched data and ready for render
-  setTopStories(result) {
-    //extract necessary data
-    const { hits, page } = result;
+  // setTopStories(result) {
+  //   //extract necessary data
+  //   const { hits, page } = result;
     
-    console.log( result );
-    //pass hits and page to update method
-    //use prev state in setState to avoid stale state
-    //use HOF to decoupling
-    this.setState(updateTopStoriesState( hits, page ));
-  }
+  //   console.log( result );
+  //   //pass hits and page to update method
+  //   //use prev state in setState to avoid stale state
+  //   //use HOF to decoupling
+  //   this.setState(updateTopStoriesState( hits, page ));
+  // }
 
   //handle input value 
   onSearchChange(event){
     this.setState({
-      searchTerm: event.target.value,
+      searchText: event.target.value,
     })
   }
 
@@ -284,27 +282,29 @@ class ReactComponentRefactor extends Component {
 
   render() {
     
-    console.log( this.state.results );
+    console.log( this.state.resultsNASA );
     //pass all necessary data from state for using
     const { 
-      searchTerm,
-      results,
-      searchKey,
-      isLoading,
+      searchText,
+      resultsNASA,
+      searchKeyText,
+      isLoadingNASA,
+      isAddingPageNASA,
+      page
     } = this.state;
     
     //exclude null and loading status for rendering list
   	const list = (
-      results &&
-      results[searchKey] &&
-      results[searchKey].hits
+      resultsNASA &&
+      resultsNASA[searchKeyText] &&
+      resultsNASA[searchKeyText].itemsForRendering
     ) || [];
     
-    const page = (
-      results &&
-      results[searchKey] &&
-      results[searchKey].page
-    ) || 0;
+    // const page = (
+    //   resultsNASA &&
+    //   resultsNASA[searchKeyText] &&
+    //   resultsNASA[searchKeyText].page
+    // ) || 0;
 
     return (
   	  <div>
@@ -312,28 +312,21 @@ class ReactComponentRefactor extends Component {
         <Search
           onChange={this.onSearchChange}
           onSubmit={this.onSearchSubmit}
-          value={searchTerm}
+          value={searchText}
         >
           Search
         </Search>
         
-        {results &&
-         results[searchKey] &&
-         results[searchKey].hits && 
+        {resultsNASA &&
+         resultsNASA[searchKeyText] &&
+         resultsNASA[searchKeyText].itemsForRendering && 
           <Table 
             list={list}
             onDismiss={this.onDismiss}
-            searchTerm={searchTerm}
+            searchText={searchText}
           />
         }
-        <MoreButtonWithConditionalRendering
-          list={list}
-          isLoading={isLoading}
-          onClick={() => this.fetchTopStories(searchKey, page+1)}
-          searchTerm={searchTerm}    
-        >
-          More
-        </MoreButtonWithConditionalRendering> 
+
   	  </div>
   	)    
   }

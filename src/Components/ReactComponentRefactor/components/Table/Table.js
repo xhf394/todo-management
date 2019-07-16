@@ -14,12 +14,12 @@ const SORTS = {
 };
 
 //search in displayed list
-const isSearched = ( searchTerm ) => item =>
-  { 
-    //exclude title = null;
-    if( item.title === null) return false; 
-    return item.title.toLowerCase().includes( searchTerm.toLowerCase() );
-  }
+// const isSearched = ( searchTerm ) => item =>
+//   { 
+//     //exclude title = null;
+//     if( item.title === null) return false; 
+//     return item.title.toLowerCase().includes( searchTerm.toLowerCase() );
+//   }
 
 
 class Table extends Component {
@@ -50,7 +50,7 @@ class Table extends Component {
   	const {
   	  list,
   	  onDismiss,
-      searchTerm	
+      searchText	
   	} = this.props;
     
     const {
@@ -65,59 +65,30 @@ class Table extends Component {
     const reverseSortList = isSortReverse
       ? sortedList.reverse()
       : sortedList;
-    console.log(sortedList.filter(isSearched(searchTerm)));
+   // console.log(sortedList.filter(isSearched(searchText)));
 	return (
 	  <div> 
 	    <h3> Table </h3>
 	    <div>
-	      <SortButton
-            onSort={this.onSort}
-            sortKey={'TITLE'}
-            activeSortKey={sortKey}
-	      >
-	        Title
-	      </SortButton>
-	      <SortButton
-            onSort={this.onSort}
-            sortKey={'COMMENTS'}
-            activeSortKey={sortKey}
-	      >
-	        Comments
-	      </SortButton>
-          <SortButton
-            onSort={this.onSort}
-            sortKey={'AUTHOR'}
-            activeSortKey={sortKey}
-          >
-            Author
-          </SortButton>
-          <SortButton
-            onSort={this.onSort}
-            sortKey={'POINTS'}
-            activeSortKey={sortKey}
-          >
-            Points
-          </SortButton>    
-	    </div>
+	      {sortedList.map(item => 
+            {
+	      	    const { data, links } = item;
+              const {nasa_id, title, secondary_creator, description } = data[0];
+              const { href } = links[0];
 
-	    <div>
-	      {sortedList.filter(isSearched(searchTerm)).map(item => 
-	      	
-	      	  <div key={item.objectID} >
-	      	    <span>
-	      	      <a href={item.url}> {item.title} </a>
-	      	    </span>
-	      	    <span> {item.num_comments} </span>
-	      	    <span> {item.author} </span>
-	      	    <span> {item.points} </span>
-	      	    <Button
-                  onClick={() => onDismiss(item.objectID)}
-	      	    >
-	      	      Dismiss
-	      	    </Button>  
-	      	  </div> 
+              return (
+                <div key={nasa_id} >
+                <span> 
+                  <img src={href} alt=""/>
+                </span>
+                <span> {title} </span>
+                <span> {secondary_creator} </span>
+                <span> {description} </span>
+              </div> 
+              )
+            }   
 	      	)
-	       }
+	      }
 	    </div>
 	  </div>
 	)
