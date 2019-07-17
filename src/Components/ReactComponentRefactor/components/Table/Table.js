@@ -83,7 +83,6 @@ class Table extends Component {
                 </span>
                 <span> {title} </span>
                 <span> {secondary_creator} </span>
-                <span> {description} </span>
               </div> 
               )
             }   

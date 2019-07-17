@@ -3,12 +3,12 @@ import { Button } from '../Button';
 
 
 //search in displayed list
-const isSearched = ( searchTerm ) => item =>
-  { 
-    //exclude title = null;
-    if( item.title === null) return false; 
-    return item.title.toLowerCase().includes( searchTerm.toLowerCase() );
-  }
+// const isSearched = ( searchText ) => item =>
+//   { 
+//     //exclude title = null;
+//     if( item.title === null) return false; 
+//     return item.title.toLowerCase().includes( searchText.toLowerCase() );
+//   }
 
 
 //define withEither interface Fn
@@ -28,7 +28,7 @@ const withMaybe = ( conditionalRenderingFn ) => ( Component ) => ( props ) =>
 const isLoadingConditionalFn = (props) => props.isLoading;
 
 //Empty Message Component Condition
-const isEmptyConditionalFn = (props) => !props.list.filter(isSearched(props.searchTerm)).length;
+const isEmptyConditionalFn = (props) => !props.listForButtonConditionalRendering.length;
 
 //null
 const nullConditionFn = (props) => !props.list;
@@ -43,7 +43,7 @@ const Loading = () =>
 //Is Empty Component
 const EmptyMessage = () => 
   <div>
-    <p> Nothing to show. </p>
+    <p> No More to show. </p>
   </div>
 
 

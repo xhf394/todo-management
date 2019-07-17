@@ -14,37 +14,6 @@ import { Search } from '../Search';
 import { Table } from '../Table';
 import { MoreButtonWithConditionalRendering } from '../Button';
 
-//update results state for rendering
-const updateTopStoriesState = ( hits, page ) =>
-  ( prevState ) => {
-
-    //access prev searchKey as key;
-    //access results to compare and update changed part;
-    const { searchKey, results } = prevState;
-    
-    //get old hits(data for rendering)
-    const oldHits = results && results[searchKey]
-      ? results[searchKey].hits
-      : [];
-
-    //update results hits with new data;
-    const updatedHits = [
-      ...oldHits,
-      ...hits,
-    ];
-
-    //do not change result data structure
-    //only adjust updates in result state
-    return {
-      results: {
-        ...results,
-        [searchKey]: { hits: updatedHits, page }
-      },
-    //set data, complete loading
-      isLoading: false,
-    };  
-
-  }
 
   //update results state for rendering
   const updateTopNASAStoriesState = ( items, metadata, page ) =>
@@ -54,7 +23,7 @@ const updateTopStoriesState = ( hits, page ) =>
       const { searchKeyText, resultsNASA, isAddingPageNASA } = prevState;
 
       //split items list to render;
-      const listSpliceForUpdating  = items.splice(0, 50);
+      const listSpliceForUpdating  = items.splice(0, 20);
       
       //get old hits
       const oldList = resultsNASA && resultsNASA[searchKeyText]
@@ -71,15 +40,13 @@ const updateTopStoriesState = ( hits, page ) =>
       //do not change result data structure
       //only adjust updates in result state
       if(!items.length) {
-        page = page + 1;
-  
         return {
           resultsNASA: {
             ...resultsNASA,
             [searchKeyText]: {
               itemsForRendering: updatedList,
+              page: page + 1,
               items, 
-              page,
               metadata, 
             }
           },
@@ -96,8 +63,8 @@ const updateTopStoriesState = ( hits, page ) =>
             [searchKeyText]: {
               itemsForRendering: updatedList,
               items, 
-              page,
-              metadata, 
+              metadata,
+              page, 
             }
           },
           isLoadingNASA: false,
@@ -112,15 +79,6 @@ class ReactComponentRefactor extends Component {
   	super(props);
 
   	this.state = {
-  	  //default fetch data, fluctuant variable, interacte with form
-  	  searchTerm: DEFAULT_QUERY,
-  	  //store fetched data
-  	  results: null, 
-  	  //set for page conditional rendering
-  	  isLoading: false,
-      //temporary store each result
-      searchKey: '',
-
       //store fetched data list
       resultsNASA: null,
       //while getting data
@@ -129,8 +87,6 @@ class ReactComponentRefactor extends Component {
       searchText: 'star',
       //temporary store each result
       searchKeyText: '',
-      //initial page = 1;
-      page: 1,
       //if adding page number
       isAddingPageNASA: true,
 
@@ -149,40 +105,33 @@ class ReactComponentRefactor extends Component {
   }
 
   componentDidMount() {
-  	// //pass searchTerm as an argument to fetch API;
-  	// const { searchTerm } = this.state;
-    
-   //  //temporary store searchTerm
-   //  this.setState({ searchKey: searchTerm });
-
-  	// this.fetchTopStories(searchTerm);
-    
     //pass searchText as an argument to fetch API; 
-    const { searchText, page } = this.state;
+    const { searchText } = this.state;
 
     //temporary store searchTerm
     this.setState({ searchKeyText: searchText });
     
     //pass variable to api
-    this.fetchTopNASAStories( searchText, page );
+    this.fetchTopNASAStories( searchText );
   }
 
   //fetch data with API
-  fetchTopNASAStories(searchText, page ){
+  fetchTopNASAStories( searchText, page = 1 ){
     //when fetch data, set loading as true;
     this.setState({isLoadingNASA: true});
 
-    const { resultsNASA } = this.state;
+    const { resultsNASA, searchKeyText } = this.state;
     
     //fetch data under condition
     if( this.state.isAddingPageNASA ) {
+
       axios(`https://images-api.nasa.gov/search?q=${searchText}&media_type=image&page=${page}`)
         .then(result => this.setTopNASAStories( result.data.collection, page ))
         .catch(error => console.log( error )); 
     }
 
     if( !this.state.isAddingPageNASA ) {
-      this.setTopNASAStories( resultsNASA, page)
+      this.setTopNASAStories( resultsNASA[searchKeyText], page );
     }
   }
   
@@ -197,31 +146,6 @@ class ReactComponentRefactor extends Component {
     this.setState(updateTopNASAStoriesState(items, metadata, page ));
   }
 
-
-  //fetch data with API
-  //pass initial page number 0;
-  // fetchTopStories(searchTerm, page = 0) {
-  //   //when fetch data, set loading as true;
-  //   this.setState({isLoading: true});
-    
-  //   axios(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}`)
-  //     .then(result => this.setTopStories( result.data ))
-  //     .catch(error => console.log( error ));  
-  // }
-
-
-  //store fetched data and ready for render
-  // setTopStories(result) {
-  //   //extract necessary data
-  //   const { hits, page } = result;
-    
-  //   console.log( result );
-  //   //pass hits and page to update method
-  //   //use prev state in setState to avoid stale state
-  //   //use HOF to decoupling
-  //   this.setState(updateTopStoriesState( hits, page ));
-  // }
-
   //handle input value 
   onSearchChange(event){
     this.setState({
@@ -232,11 +156,27 @@ class ReactComponentRefactor extends Component {
   //submit input data with button/press enter
   onSearchSubmit(event){
     //set searchKey before fetch data
-    const { searchTerm } = this.state;    
-    this.setState({searchKey: searchTerm});
+    const { searchText } = this.state;    
+    
+    this.setState({ 
+      searchKeyText: searchText,
+    });
 
-    if( this.needsToFetchStories(searchTerm)) {
-      this.fetchTopStories( searchTerm );
+
+    if( this.needsToFetchStories(searchText)) {
+
+      // this.setState({
+      //   //start a new fetch process
+      //   isAddingPageNASA: true,
+      //   //initiate page
+      //   page: 1,
+      //   resultsNASA: null,
+      // });
+      const page = 1;
+
+      axios(`https://images-api.nasa.gov/search?q=${searchText}&media_type=image&page=${page}`)
+        .then(result => this.setTopNASAStories( result.data.collection, page ))
+        .catch(error => console.log( error ));
     }
     
     //prevent page refresh
@@ -244,8 +184,8 @@ class ReactComponentRefactor extends Component {
   }
 
   //check if specific API already fetched
-  needsToFetchStories(searchTerm) {
-    return !this.state.results[searchTerm];
+  needsToFetchStories(searchText) {
+    return !this.state.resultsNASA[searchText];
   }
   
   onDismiss(id) {
@@ -290,7 +230,6 @@ class ReactComponentRefactor extends Component {
       searchKeyText,
       isLoadingNASA,
       isAddingPageNASA,
-      page
     } = this.state;
     
     //exclude null and loading status for rendering list
@@ -300,11 +239,17 @@ class ReactComponentRefactor extends Component {
       resultsNASA[searchKeyText].itemsForRendering
     ) || [];
     
-    // const page = (
-    //   resultsNASA &&
-    //   resultsNASA[searchKeyText] &&
-    //   resultsNASA[searchKeyText].page
-    // ) || 0;
+    const page = (
+      resultsNASA &&
+      resultsNASA[searchKeyText] &&
+      resultsNASA[searchKeyText].page
+    ) || 1;
+
+    const listForButtonConditionalRendering = (
+      resultsNASA &&
+      resultsNASA[searchKeyText] &&
+      resultsNASA[searchKeyText].items
+    ) || [];
 
     return (
   	  <div>
@@ -327,6 +272,15 @@ class ReactComponentRefactor extends Component {
           />
         }
 
+        <MoreButtonWithConditionalRendering
+          list={list}
+          isLoading={isLoadingNASA}
+          onClick={() => this.fetchTopNASAStories(searchKeyText, page)}
+          searchText={searchText}
+          listForButtonConditionalRendering={listForButtonConditionalRendering}    
+        >
+          More
+        </MoreButtonWithConditionalRendering>
   	  </div>
   	)    
   }
