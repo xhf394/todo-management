@@ -28,7 +28,7 @@ const withMaybe = ( conditionalRenderingFn ) => ( Component ) => ( props ) =>
 const isLoadingConditionalFn = (props) => props.isLoading;
 
 //Empty Message Component Condition
-const isEmptyConditionalFn = (props) => !props.listForButtonConditionalRendering.length;
+const isEmptyConditionalFn = (props) => !props.listForButtonConditionalRendering.length && props.list.length === props.totalHits;
 
 //null
 const nullConditionFn = (props) => !props.list;

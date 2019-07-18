@@ -251,6 +251,13 @@ class ReactComponentRefactor extends Component {
       resultsNASA[searchKeyText].items
     ) || [];
 
+    const totalHits = (
+      resultsNASA &&
+      resultsNASA[searchKeyText] &&
+      resultsNASA[searchKeyText].metadata &&
+      resultsNASA[searchKeyText].metadata.total_hits
+      ) || 0;
+
     return (
   	  <div>
   	    <h1>This is the refactor version </h1>
@@ -277,7 +284,8 @@ class ReactComponentRefactor extends Component {
           isLoading={isLoadingNASA}
           onClick={() => this.fetchTopNASAStories(searchKeyText, page)}
           searchText={searchText}
-          listForButtonConditionalRendering={listForButtonConditionalRendering}    
+          listForButtonConditionalRendering={listForButtonConditionalRendering}
+          totalHits={totalHits}    
         >
           More
         </MoreButtonWithConditionalRendering>

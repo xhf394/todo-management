@@ -7,8 +7,10 @@ import { sortBy } from 'lodash';
 const SORTS = {
   //A default list should be defined, not sorted
   NONE: list => list,
-  TITLE: list => sortBy(list, 'title'),
-  AUTHOR: list => sortBy(list, 'author'),
+  TITLE: list => sortBy(list, function(o) {return o.data[0].title}),
+  DATE: list => sortBy(list, function(o) {
+    return new Date(o.data[0].date_created);
+  }),
   COMMENTS: list => sortBy(list, 'num_comments').reverse(),
   POINTS: list => sortBy(list, 'points').reverse(),	
 };
@@ -69,11 +71,34 @@ class Table extends Component {
 	return (
 	  <div> 
 	    <h3> Table </h3>
+      <div>
+        <SortButton
+            onSort={this.onSort}
+            sortKey={'TITLE'}
+            activeSortKey={sortKey}
+        >
+          Title
+        </SortButton>
+        <SortButton
+            onSort={this.onSort}
+            sortKey={'DATE'}
+            activeSortKey={sortKey}
+        >
+          Created Date
+        </SortButton>
+          <SortButton
+            onSort={this.onSort}
+            sortKey={'AUTHOR'}
+            activeSortKey={sortKey}
+          >
+            Author
+          </SortButton>  
+      </div>
 	    <div>
 	      {sortedList.map(item => 
             {
 	      	    const { data, links } = item;
-              const {nasa_id, title, secondary_creator, description } = data[0];
+              const {nasa_id, title, secondary_creator, location, date_created } = data[0];
               const { href } = links[0];
 
               return (
@@ -83,6 +108,9 @@ class Table extends Component {
                 </span>
                 <span> {title} </span>
                 <span> {secondary_creator} </span>
+                <span> {location} </span>
+                <span> {date_created} </span>
+
               </div> 
               )
             }   
