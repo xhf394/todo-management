@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Button, SortButton } from '../Button';
 import { sortBy } from 'lodash';
+import './Table.css';
 
 
 //a list of Fn used to sort list
@@ -69,7 +70,7 @@ class Table extends Component {
       : sortedList;
    // console.log(sortedList.filter(isSearched(searchText)));
 	return (
-	  <div> 
+	  <div className="table"> 
 	    <h3> Table </h3>
       <div>
         <SortButton

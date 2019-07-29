@@ -27,20 +27,20 @@ const App = () => (
 
   <div className='App'>
     <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/'>Todo Management </Link>
+      <nav className='header'>
+        <ul className="nav">
+          <li className="nav-item">
+            <Link to='/' className="nav-link">Todo Management </Link>
           </li>
-          <li>
-            <Link to='/theRoad'>The Road </Link>
+          <li className="nav-item">
+            <Link to='/theRoad' className="nav-link">The Road </Link>
           </li>
-          <li>
-            <Link to='/ReactComponentRefactor'> ReactComponentRefactor </Link>
+          <li className="nav-item">
+            <Link to='/ReactComponentRefactor' className="nav-link"> ReactComponentRefactor </Link>
           </li>
         </ul>
       </nav>    
-      <div>
+      <div className="body">
       {routes.map((route, index) => (
          <Route
            key={index}
