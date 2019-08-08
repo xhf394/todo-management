@@ -28,8 +28,8 @@ body {
 /**flex style for navigation**/
 .nav {
   display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
+  flex-direction: row;
+  justify-content: flex-end;
   flex-wrap: nowrap;
   white-space: nowrap;
 }
@@ -41,6 +41,7 @@ body {
 
 .nav-link {
   text-decoration: none;
+  color:rgb(0, 0, 0) ;
 }
 
 

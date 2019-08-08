@@ -14,6 +14,8 @@ import { Search } from '../Search';
 import { Table } from '../Table';
 import { MoreButtonWithConditionalRendering } from '../Button';
 
+import './ReactComponentRefactor.css';
+
 
   //update results state for rendering
   const updateTopNASAStoriesState = ( items, metadata, page ) =>
@@ -260,7 +262,7 @@ class ReactComponentRefactor extends Component {
 
     return (
   	  <div>
-  	    <h1>This is the refactor version </h1>
+  	    <h1> NASA Image Search </h1>
         <Search
           onChange={this.onSearchChange}
           onSubmit={this.onSearchSubmit}

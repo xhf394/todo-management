@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import './Search.css';
 
 class Search extends Component {
   
@@ -12,16 +13,19 @@ class Search extends Component {
     } = this.props;
 
 	return (
+    <div className='input-wrapper'>
       <form onSubmit={onSubmit}>
         <input 
           onChange={onChange}
           value={value}
+          className='input-text'
+          type='search'
         />
-        <button> 
+        <button className='search-btn' type='submit'> 
           {children}
         </button>
       </form>
-
+    </div>
 	)
   }
 }

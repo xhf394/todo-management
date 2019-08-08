@@ -1,0 +1,21 @@
+
+
+
+/**responsive page media query**/
+/**small width 768px**/
+@media (min-width: 768px) {
+  .App {
+  }
+}
+
+/**medium width 768px to 979px**/
+
+@media (min-width: 768px) and (max-width: 979px) {
+    
+  }
+
+
+/**large width 979px**/
+@media (max-width: 979px){
+
+}
