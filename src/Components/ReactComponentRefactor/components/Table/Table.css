@@ -6,3 +6,22 @@
   margin-bottom: 20px;
   margin-top: 20px;
 }
+
+.table-grid-item {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.table-grid-item-inner {
+
+}
+
+/**responsive page media query**/
+
+/**small width 768px**/
+@media only screen and (max-width: 768px) {
+  .table-grid-item-inner {
+  	max-width: 280px;
+  	margin: 0 auto;
+  }
+}

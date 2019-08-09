@@ -110,16 +110,17 @@ class Table extends Component {
               const { href } = links[0];
 
               return (
-                <div key={nasa_id} >
-                <span> 
-                  <img src={href} alt=""/>
-                </span>
-                <span> {title} </span>
-                <span> {secondary_creator} </span>
-                <span> {location} </span>
-                <span> {date_created} </span>
-
-              </div> 
+                <div key={nasa_id} className='table-grid-item'>
+                  <div className='table-grid-item-inner'>
+                    <span> 
+                      <img src={href} alt=""/>
+                    </span>
+                    <span> {title} </span>
+                    <span> {secondary_creator} </span>
+                    <span> {location} </span>
+                    <span> {date_created} </span>
+                  </div>
+                </div> 
               )
             }   
 	      	)
