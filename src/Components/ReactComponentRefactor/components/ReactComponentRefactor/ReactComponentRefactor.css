@@ -3,8 +3,13 @@
 
 /**responsive page media query**/
 /**small width 768px**/
-@media (min-width: 768px) {
-  .App {
+@media only screen and (max-width: 768px) {
+  .nasa-wrapper {
+    text-align: center;
+  }    
+
+  .nasa-header {
+
   }
 }
 
