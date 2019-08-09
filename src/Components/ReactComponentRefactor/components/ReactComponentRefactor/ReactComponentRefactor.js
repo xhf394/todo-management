@@ -262,13 +262,12 @@ class ReactComponentRefactor extends Component {
 
     return (
   	  <div className='nasa-wrapper'>
-  	    <h1 className='nasa-header'> NASA Image Search </h1>
         <Search
           onChange={this.onSearchChange}
           onSubmit={this.onSearchSubmit}
           value={searchText}
         >
-          Search
+          
         </Search>
         
         {resultsNASA &&

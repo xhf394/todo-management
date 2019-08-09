@@ -1,7 +1,25 @@
 
 /**general style**/
 .input-wrapper {
-	position: relative;
+  margin-top: 20px;	
+}
+
+/**take off default style**/
+input, button {
+	border: none;
+	outline: none;
+}
+
+.search-btn {
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	min-width: 60px;
+	background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMyIgaGVpZ2h0PSIyNyI+PHBhdGggZmlsbD0iI0U1RTVFNSIgZD0iTTEwIDJjNC40MSAwIDggMy41OSA4IDhzLTMuNTkgOC04IDgtOC0zLjU5LTgtOCAzLjU5LTggOC04bTAtMkM0LjQ3NyAwIDAgNC40NzcgMCAxMGMwIDUuNTIgNC40NzcgMTAgMTAgMTAgNS41MiAwIDEwLTQuNDggMTAtMTAgMC01LjUyMy00LjQ4LTEwLTEwLTEweiIvPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0U1RTVFNSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIGQ9Ik0yMiAyNmwtNy05Ii8+PC9zdmc+")
+}
+
+.input-text {
+	padding-left: 20px;
 }
 
 
@@ -12,12 +30,21 @@
     font-size: 15px;
     line-height: 26px;
   }	
+  
+  /**flex layout**/
+  .input-form-wrapper {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    border: 2px solid #e6e5e5;
+  } 
+  
 
   .input-text {
   	height: 50px;
   	padding-right: 45px;
   	font-size: 16px;
-  	width: 100%;
+  	flex-grow: 1;
   }
 }
 

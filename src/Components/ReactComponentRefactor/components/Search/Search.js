@@ -15,15 +15,16 @@ class Search extends Component {
 	return (
     <div className='input-wrapper'>
       <form onSubmit={onSubmit}>
-        <input 
-          onChange={onChange}
-          value={value}
-          className='input-text'
-          type='search'
-        />
-        <button className='search-btn' type='submit'> 
-          {children}
-        </button>
+        <div className='input-form-wrapper'>
+          <input 
+            onChange={onChange}
+            value={value}
+            className='input-text'
+          />
+          <button className='search-btn' type='submit'> 
+            {children}
+          </button>
+        </div>
       </form>
     </div>
 	)
