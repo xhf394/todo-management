@@ -20,6 +20,7 @@ class Search extends Component {
             onChange={onChange}
             value={value}
             className='input-text'
+            placeholder='Key Words, Title, Name, Place, Date'
           />
           <button className='search-btn' type='submit'> 
             {children}

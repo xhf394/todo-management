@@ -7,13 +7,14 @@ import './Table.css';
 //a list of Fn used to sort list
 const SORTS = {
   //A default list should be defined, not sorted
-  NONE: list => list,
+  RELEVANCE: list => list,
   TITLE: list => sortBy(list, function(o) {return o.data[0].title}),
   DATE: list => sortBy(list, function(o) {
     return new Date(o.data[0].date_created);
   }),
-  COMMENTS: list => sortBy(list, 'num_comments').reverse(),
-  POINTS: list => sortBy(list, 'points').reverse(),	
+  CENTER: list => sortBy(list, function(o) {return o.data[0].center}),
+  //COMMENTS: list => sortBy(list, 'num_comments').reverse(),
+  //POINTS: list => sortBy(list, 'points').reverse(),	
 };
 
 //search in displayed list
@@ -30,7 +31,7 @@ class Table extends Component {
   	super(props);
     this.state = ({
       isSortReverse: false,
-      sortKey: 'NONE',	
+      sortKey: 'RELEVANCE',	
     })
 
     this.onSort = this.onSort.bind(this);
@@ -71,29 +72,35 @@ class Table extends Component {
    // console.log(sortedList.filter(isSearched(searchText)));
 	return (
 	  <div className="table"> 
-	    <h3> Table </h3>
-      <div>
+      <div className='table-btn-wrapper' >
         <SortButton
-            onSort={this.onSort}
-            sortKey={'TITLE'}
-            activeSortKey={sortKey}
+          onSort={this.onSort}
+          sortKey={'RELEVANCE'}
+          activeSortKey={sortKey}
+        >
+          Relevance
+        </SortButton>
+        <SortButton
+          onSort={this.onSort}
+          sortKey={'TITLE'}
+          activeSortKey={sortKey}
         >
           Title
         </SortButton>
         <SortButton
-            onSort={this.onSort}
-            sortKey={'DATE'}
-            activeSortKey={sortKey}
+          onSort={this.onSort}
+          sortKey={'DATE'}
+          activeSortKey={sortKey}
         >
-          Created Date
+          Date
         </SortButton>
-          <SortButton
-            onSort={this.onSort}
-            sortKey={'AUTHOR'}
-            activeSortKey={sortKey}
-          >
-            Author
-          </SortButton>  
+        <SortButton
+          onSort={this.onSort}
+          sortKey={'CENTER'}
+          activeSortKey={sortKey}
+        >
+          Center
+        </SortButton>  
       </div>
 	    <div>
 	      {sortedList.map(item => 

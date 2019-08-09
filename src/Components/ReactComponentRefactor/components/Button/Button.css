@@ -5,7 +5,9 @@
 }
 
 .button-primary {
-  background-color: green;	
+  background-color: #fff;
+  padding: 10px;
+  cursor: pointer;	
 }
 
 .button-inline {
