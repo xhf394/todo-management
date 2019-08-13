@@ -1,15 +1,20 @@
 
 /**SORT TABLE active button style **/
-.button-active {
-  color: red;
-}
+
 
 .button-primary {
   background-color: #fff;
-  padding: 10px;
-  cursor: pointer;	
+  color: #999;
+  padding: 20px;
+  cursor: pointer;
+  font-size: 15px; 	
 }
 
 .button-inline {
-  font-weight: bold;	
+ 	
+}
+
+.button-active {
+  font-weight: bold;
+  color: #000;
 }

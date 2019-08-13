@@ -102,11 +102,11 @@ class Table extends Component {
           Center
         </SortButton>  
       </div>
-	    <div>
+	    <div className='table-grid'>
 	      {sortedList.map(item => 
             {
 	      	    const { data, links } = item;
-              const {nasa_id, title, secondary_creator, location, date_created } = data[0];
+              const {nasa_id, title, secondary_creator, center, date_created } = data[0];
               const { href } = links[0];
 
               return (
@@ -115,10 +115,11 @@ class Table extends Component {
                     <span> 
                       <img src={href} alt=""/>
                     </span>
-                    <span> {title} </span>
-                    <span> {secondary_creator} </span>
-                    <span> {location} </span>
-                    <span> {date_created} </span>
+                    <div className='table-grid-item-content'>
+                      <h4 className='table-grid-item-title'> {title} </h4>
+                      <span className='table-grid-item-center'> {center} </span>
+                      <span className='table-grid-item-date'> {date_created} </span>
+                    </div>  
                   </div>
                 </div> 
               )

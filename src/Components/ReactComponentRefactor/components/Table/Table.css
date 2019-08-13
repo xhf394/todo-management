@@ -2,26 +2,65 @@
 
 .table-btn-wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
-.table-grid-item {
+/**table general layout**/
+.table-grid {
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.table-grid-item { 
+  box-sizing: border-box;
   padding-left: 20px;
   padding-right: 20px;
+  margin-bottom: 40px;
+  color: #999;
+  text-align: left;
+  width: 25%;
+  transition: all 1s linear;
 }
 
 .table-grid-item-inner {
+  max-width: 280px;
+  margin: 0 auto;
+  
+}
 
+.table-grid-item-content {
+	display: flex;
+	flex-direction: column;
 }
 
 /**responsive page media query**/
 
 /**small width 768px**/
 @media only screen and (max-width: 768px) {
-  .table-grid-item-inner {
-  	max-width: 280px;
-  	margin: 0 auto;
+  .table-grid {
+  	flex-direction: column;
+  	justify-content: center;
+  }
+
+  .table-grid-item {
+  	margin-bottom: 60px;
+  	width: auto;
+  }
+
+}
+
+@media only screen and (max-width: 979px) and (min-width: 768px) {
+  .table-grid {
+  	flex-wrap: wrap;
+  }	
+  .table-grid-item {
+
+  	width: 50%;
   }
 }
+
+
+
