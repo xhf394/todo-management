@@ -4,6 +4,37 @@ img {
   max-width: 100%;
 }
 
+.btn-load-more {
+  width: 190px;
+  display:block;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 2px solid #e6e5e5;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.header {
+  height: 106px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  box-shadow: 0 0 5px rgba(0,0,0,.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font: 42px/65px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
+}
+
+.header-intro {
+  max-width: 1080px;
+  margin-left: 86px;
+  margin-right: 86px;
+}
+
 
 /**responsive page media query**/
 /**small width 768px**/

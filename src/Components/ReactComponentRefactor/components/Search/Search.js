@@ -18,7 +18,7 @@ class Search extends Component {
         <div className='input-form-wrapper'>
           <input 
             onChange={onChange}
-            value={value}
+            
             className='input-text'
             placeholder='Key Words, Title, Name, Place, Date'
           />

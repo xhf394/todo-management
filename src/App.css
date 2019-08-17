@@ -1,26 +1,15 @@
 html,
 body {
   margin: 0;
+  font-family: Neutral Regular\ 3,NeutralBP,Neutral BP,Helvetica,Arial,sans-serif;
 }
 
+.App {
+  min-width: 556px;
+}
 /**Navigation**/
 
 /**Header height**/
-
-.header {
-  height: 106px;
-  box-shadow: 0 0 10px rgba(0,0,0,.35);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: nowrap;
-}
-
-.header ul {
-  margin: 0px;
-}
-
-
 
 
 

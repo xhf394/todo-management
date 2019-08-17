@@ -262,6 +262,9 @@ class ReactComponentRefactor extends Component {
 
     return (
   	  <div className='nasa-wrapper'>
+        <div className='header'>
+         <p className='header-intro'>NASA <u>IMAGES </u> Search Engine </p>
+        </div>
         <Search
           onChange={this.onSearchChange}
           onSubmit={this.onSearchSubmit}
@@ -286,7 +289,8 @@ class ReactComponentRefactor extends Component {
           onClick={() => this.fetchTopNASAStories(searchKeyText, page)}
           searchText={searchText}
           listForButtonConditionalRendering={listForButtonConditionalRendering}
-          totalHits={totalHits}    
+          totalHits={totalHits}
+          className="btn-load-more"    
         >
           More
         </MoreButtonWithConditionalRendering>

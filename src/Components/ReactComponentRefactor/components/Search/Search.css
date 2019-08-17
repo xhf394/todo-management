@@ -7,8 +7,8 @@ input, button {
 /**general style**/
 .input-wrapper {
   margin-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;	
+  padding-left: 40px;
+  padding-right: 40px;	
 }
 
 .search-btn {
@@ -21,11 +21,15 @@ input, button {
 
 .input-text {
   padding-left: 20px;
+  font-size: 16px;
+  flex-grow: 1;
 }
 
 .input-form-wrapper {
   display: flex;
+  justify-content: space-between;
   min-height: 50px;
+  border: 2px solid #e6e5e5;
 }
 
 
@@ -39,30 +43,28 @@ input, button {
   }	
   
   /**flex layout**/
+  .input-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
   .input-form-wrapper {
-    display: flex;
     position: relative;
-    justify-content: space-between;
-    border: 2px solid #e6e5e5;
   } 
   
 
   .input-text {
   	height: 50px;
   	padding-right: 30px;
-  	font-size: 16px;
-  	flex-grow: 1;
+    font-size: 15px;
   }
 }
 
 /**medium width 768px to 979px**/
 
-@media (min-width: 768px) and (max-width: 979px) {
-    
+@media (min-width: 768px) and (max-width: 979px) {   
   }
-
 
 /**large width 979px**/
 @media (max-width: 979px){
-
 }

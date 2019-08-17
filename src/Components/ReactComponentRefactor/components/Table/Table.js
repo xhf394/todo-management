@@ -111,16 +111,14 @@ class Table extends Component {
 
               return (
                 <div key={nasa_id} className='table-grid-item'>
-                  <div className='table-grid-item-inner'>
-                    <span> 
+                  <div className='table-grid-item-pic'>
                       <img src={href} alt=""/>
-                    </span>
-                    <div className='table-grid-item-content'>
-                      <h4 className='table-grid-item-title'> {title} </h4>
-                      <span className='table-grid-item-center'> {center} </span>
-                      <span className='table-grid-item-date'> {date_created} </span>
-                    </div>  
                   </div>
+                  <div className='table-grid-item-content'>
+                    <h4 className='table-grid-item-title'> {title} </h4>
+                    <span className='table-grid-item-center'> {center} </span>
+                    <span className='table-grid-item-date'> {date_created} </span>
+                  </div> 
                 </div> 
               )
             }   
