@@ -263,7 +263,7 @@ class ReactComponentRefactor extends Component {
     return (
   	  <div className='nasa-wrapper'>
 
-        <div className='header'>
+        <div className='header' id='topAnchor'>
          <p className='header-intro'>NASA <u>IMAGES </u> Search Engine </p>
         
         <Search
@@ -296,7 +296,10 @@ class ReactComponentRefactor extends Component {
           className="btn-load-more"    
         >
           More
-        </MoreButtonWithConditionalRendering>
+        </MoreButtonWithConditionalRendering> 
+        <a href="#topAnchor" className="top-link">
+         Top 
+        </a>
   	  </div>
   	)    
   }
