@@ -10,6 +10,7 @@ class Search extends Component {
     	onChange,
     	value,
     	onSubmit,
+      totalHits
     } = this.props;
 
 	return (
@@ -18,7 +19,7 @@ class Search extends Component {
         <div className='input-form-wrapper'>
           <input 
             onChange={onChange}
-            
+            //value={value}
             className='input-text'
             placeholder='Key Words, Title, Name, Place, Date'
           />
@@ -27,6 +28,7 @@ class Search extends Component {
           </button>
         </div>
       </form>
+      <span className='input-counter'> showing {totalHits} works</span>
     </div>
 	)
   }

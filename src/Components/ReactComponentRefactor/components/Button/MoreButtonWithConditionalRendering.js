@@ -1,4 +1,4 @@
-  import React, { Component } from 'react';
+import React, { Component } from 'react';
 import { Button } from '../Button';
 
 
@@ -54,5 +54,5 @@ const EmptyMessage = () =>
   const MoreButtonWithConditionalRendering = MoreButtonWithLoading(MoreButtonWithEmpty(MoreButtonWithNull( Button )));
 
 
-
+  
   export { MoreButtonWithConditionalRendering };

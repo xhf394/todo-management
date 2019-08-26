@@ -204,7 +204,7 @@ class ReactComponentRefactor extends Component {
 
     const {
       hits,
-      page 
+      page, 
     } = results[searchKey];
     
     console.log(id);
@@ -262,16 +262,19 @@ class ReactComponentRefactor extends Component {
 
     return (
   	  <div className='nasa-wrapper'>
+
         <div className='header'>
          <p className='header-intro'>NASA <u>IMAGES </u> Search Engine </p>
-        </div>
+        
         <Search
           onChange={this.onSearchChange}
           onSubmit={this.onSearchSubmit}
           value={searchText}
-        >
-          
+          totalHits={totalHits}
+        >         
         </Search>
+
+        </div>
         
         {resultsNASA &&
          resultsNASA[searchKeyText] &&
