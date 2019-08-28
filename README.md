@@ -14,6 +14,8 @@
 
   Certain amount of images will display on the page with equal width and height;
 
+  ![](name-of-giphy.gif)
+
   ![](C:\Users\huangx\Desktop\Front-End\loadingpage.gif)
 
 
@@ -21,3 +23,4 @@
 - All the contents are displaying with responsive page design
 
   
+
