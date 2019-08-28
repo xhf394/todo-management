@@ -14,7 +14,7 @@
 
   Certain amount of images will display on the page with equal width and height;
 
-  ![](C:\Users\huangx\Desktop\Front-End\loadingpage.gif)
+  ![loading page](C:\Users\huangx\Desktop\Front-End\loadingpage.gif)
 
 
 
