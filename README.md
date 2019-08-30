@@ -14,11 +14,11 @@
 
   Certain amount of images will display on the page with equal width and height;
 
-  [Imgur](https://i.imgur.com/BfQn9SG.gifv)
+  <span style='width: 200px'>
+  
+  ![](https://i.imgur.com/BfQn9SG.gif)
 
-[Imgur](https://i.imgur.com/BfQn9SG.gifv)![](https://i.imgur.com/BfQn9SG.gif)
-
-
+</span>
 
 
 
