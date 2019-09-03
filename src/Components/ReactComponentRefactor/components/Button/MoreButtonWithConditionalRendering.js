@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from '../Button';
+import { compose } from 'recompose';
 
 
 //search in displayed list
@@ -46,13 +47,20 @@ const EmptyMessage = () =>
     <p> No More to show. </p>
   </div>
 
+ 
+
+  const withConditionalRendering = compose(
+    withEither(isLoadingConditionalFn, Loading),
+    withMaybe(nullConditionFn),
+    withEither(isEmptyConditionalFn, EmptyMessage)
+  );
 
   const MoreButtonWithNull = withMaybe(nullConditionFn);
   const MoreButtonWithLoading = withEither(isLoadingConditionalFn, Loading);
   const MoreButtonWithEmpty = withEither(isEmptyConditionalFn, EmptyMessage);
 
-  const MoreButtonWithConditionalRendering = MoreButtonWithLoading(MoreButtonWithEmpty(MoreButtonWithNull( Button )));
-
+  //const MoreButtonWithConditionalRendering = MoreButtonWithEmpty(MoreButtonWithNull(MoreButtonWithLoading( Button )));
+  const MoreButtonWithConditionalRendering = withConditionalRendering( Button );
 
   
   export { MoreButtonWithConditionalRendering };

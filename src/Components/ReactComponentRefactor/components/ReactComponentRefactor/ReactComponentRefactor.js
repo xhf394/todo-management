@@ -162,6 +162,7 @@ class ReactComponentRefactor extends Component {
     
     this.setState({ 
       searchKeyText: searchText,
+      isLoadingNASA: true,
     });
 
 
