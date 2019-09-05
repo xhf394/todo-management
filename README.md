@@ -40,10 +40,22 @@
 
   After entering a piece of text content and pressing enter button, data will be fetched from NASA database and then be displaying on the page;
 
+  
+  
+  
+  
+  
+  
   ![](https://i.imgur.com/yjCZR7i.gif)
 
 
 
 
 
-Other functions to be continued. 
+Other functions to be continued.  
+
+### Data Structure
+
+immutable data structure: 
+
+- ​	Using JS ES6 spread operator to update.;
