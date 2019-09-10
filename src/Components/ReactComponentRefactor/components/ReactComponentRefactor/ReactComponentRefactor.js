@@ -91,6 +91,8 @@ class ReactComponentRefactor extends Component {
       searchKeyText: '',
       //if adding page number
       isAddingPageNASA: true,
+      //hover state inital false
+      isHover: false,
 
   	}
     
@@ -103,6 +105,8 @@ class ReactComponentRefactor extends Component {
     //bind all methods NASA;
     this.fetchTopNASAStories = this.fetchTopNASAStories.bind(this);
     this.setTopNASAStories = this.setTopNASAStories.bind(this);
+    this.onMouseLeave = this.onMouseLeave.bind(this);
+    this.onMouseEnter = this.onMouseEnter.bind(this);
 
   }
 
@@ -221,6 +225,15 @@ class ReactComponentRefactor extends Component {
     })
   }
 
+  //mouse in
+  onMouseEnter() {
+    this.setState( {isHover: true } )
+  }
+
+  //mouse out
+  onMouseLeave() {
+    this.setState( { isHover: false } )
+  }
 
 
   render() {
@@ -233,6 +246,7 @@ class ReactComponentRefactor extends Component {
       searchKeyText,
       isLoadingNASA,
       isAddingPageNASA,
+      isHover
     } = this.state;
     
     //exclude null and loading status for rendering list
@@ -261,10 +275,16 @@ class ReactComponentRefactor extends Component {
       resultsNASA[searchKeyText].metadata.total_hits
       ) || 0;
 
+    const loadButtonStyle = ['btn-load-more'];
+    
+    if( isHover ) {
+      loadButtonStyle.push('btn-load-more-active')
+    }
+
     return (
   	  <div className='nasa-wrapper'>
 
-        <div className='header' id='topAnchor'>
+        <div className='header' id='topAnchor' >
          <p className='header-intro'>NASA <u>IMAGES </u> Search Engine </p>
         
         <Search
@@ -286,18 +306,25 @@ class ReactComponentRefactor extends Component {
             searchText={searchText}
           />
         }
-
-        <MoreButtonWithConditionalRendering
-          list={list}
-          isLoading={isLoadingNASA}
-          onClick={() => this.fetchTopNASAStories(searchKeyText, page)}
-          searchText={searchText}
-          listForButtonConditionalRendering={listForButtonConditionalRendering}
-          totalHits={totalHits}
-          className="btn-load-more"    
+        
+        <div
+          onMouseEnter={this.onMouseEnter}
+          onMouseLeave={this.onMouseLeave}
+          className='load-button-wrapper' 
         >
-          More
-        </MoreButtonWithConditionalRendering> 
+          <MoreButtonWithConditionalRendering
+            list={list}
+            isLoading={isLoadingNASA}
+            onClick={() => this.fetchTopNASAStories(searchKeyText, page)}
+            searchText={searchText}
+            listForButtonConditionalRendering={listForButtonConditionalRendering}
+            totalHits={totalHits}
+            className={loadButtonStyle.join(' ')}  
+          >
+            Load More
+          </MoreButtonWithConditionalRendering>
+        </div>
+
         <a href="#topAnchor" className="top-link">
          Top 
         </a>

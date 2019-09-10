@@ -22,6 +22,9 @@ img {
   right: 0px;
   /**box-shadow: 0 0 2px rgba(0,0,0,.35);**/
   margin-bottom: 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: white;
   font: 42px/65px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
 }
 
@@ -44,6 +47,16 @@ img {
   text-decoration: none;
 }
 
+.load-button-wrapper {
+  width: 190px;
+  margin: 0 auto;
+}
+
+.btn-load-more-active {
+  background-color: black;
+  color: white;
+  transition: opacity .2s;
+}
 
 /**responsive page media query**/
 /**small width 768px**/
