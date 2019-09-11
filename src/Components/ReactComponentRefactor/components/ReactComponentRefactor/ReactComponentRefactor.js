@@ -94,6 +94,9 @@ class ReactComponentRefactor extends Component {
       //hover state inital false
       isHover: false,
 
+      sticky: null,
+      scroll: null,
+
   	}
     
     //bind all methods;
@@ -107,18 +110,26 @@ class ReactComponentRefactor extends Component {
     this.setTopNASAStories = this.setTopNASAStories.bind(this);
     this.onMouseLeave = this.onMouseLeave.bind(this);
     this.onMouseEnter = this.onMouseEnter.bind(this);
-
+    this.onScrollFixNav = this.onScrollFixNav.bind(this);
   }
 
   componentDidMount() {
     //pass searchText as an argument to fetch API; 
     const { searchText } = this.state;
 
+    const el = document.querySelector('.header');
+
     //temporary store searchTerm
-    this.setState({ searchKeyText: searchText });
+    this.setState({ 
+      searchKeyText: searchText,
+      sticky: el.offsetTop,
+    });
     
     //pass variable to api
-    this.fetchTopNASAStories( searchText );
+    this.fetchTopNASAStories( searchText ); 
+
+    window.addEventListener('scroll', this.onScrollFixNav);  
+    
   }
 
   //fetch data with API
@@ -234,7 +245,10 @@ class ReactComponentRefactor extends Component {
   onMouseLeave() {
     this.setState( { isHover: false } )
   }
-
+  
+  onScrollFixNav() {
+    this.setState({scroll: window.pageYOffset});
+  }
 
   render() {
     
@@ -246,7 +260,9 @@ class ReactComponentRefactor extends Component {
       searchKeyText,
       isLoadingNASA,
       isAddingPageNASA,
-      isHover
+      isHover, 
+      sticky,
+      scroll,
     } = this.state;
     
     //exclude null and loading status for rendering list
@@ -277,14 +293,19 @@ class ReactComponentRefactor extends Component {
 
     const loadButtonStyle = ['btn-load-more'];
     
+    const headerStyle = ['header'];
     if( isHover ) {
       loadButtonStyle.push('btn-load-more-active')
+    }
+
+    if( scroll >= sticky) {
+      headerStyle.push('header-sticky');
     }
 
     return (
   	  <div className='nasa-wrapper'>
 
-        <div className='header' id='topAnchor' >
+        <div className={headerStyle.join(' ')} id='topAnchor' >
          <p className='header-intro'>NASA <u>IMAGES </u> Search Engine </p>
         
         <Search

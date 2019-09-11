@@ -28,6 +28,10 @@ img {
   font: 42px/65px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
 }
 
+.header-sticky{
+  box-shadow: 0 0 10px rgba(0,0,0, .35);
+}
+
 .header-intro {
   /**max-width: 1080px;**/
   text-align: center;
