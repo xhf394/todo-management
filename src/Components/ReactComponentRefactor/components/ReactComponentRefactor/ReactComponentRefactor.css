@@ -37,6 +37,10 @@ img {
   text-align: center;
 
 }
+.header-intro-mobile {
+  opacity: 0;
+  display: none;
+}
 
 .top-link {
   position: fixed;
@@ -71,6 +75,25 @@ img {
 
   .nasa-header {
 
+  }
+
+  /**intro transition**/
+  .header-intro {
+    opacity: 0;
+    display: none;
+  }
+
+  .header-intro-mobile {
+    opacity: 1;
+    display: block;
+    margin: 0px;
+  }
+
+  .header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
   }
 }
 

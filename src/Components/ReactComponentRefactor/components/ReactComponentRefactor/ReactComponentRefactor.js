@@ -306,7 +306,7 @@ class ReactComponentRefactor extends Component {
   	  <div className='nasa-wrapper'>
 
         <div className={headerStyle.join(' ')} id='topAnchor' >
-         <p className='header-intro'>NASA <u>IMAGES </u> Search Engine </p>
+         
         
         <Search
           onChange={this.onSearchChange}
