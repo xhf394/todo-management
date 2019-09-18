@@ -1,10 +1,14 @@
 /**general style**/
-
+.table {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 .table-btn-wrapper {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
   margin-top: 20px;
+  width: 100%;
 }
 
 /**table general layout**/
@@ -47,7 +51,7 @@
 /**responsive page media query**/
 
 /**small width 768px**/
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 766px) {
   .table-grid {
   	flex-direction: column;
   	justify-content: center;
@@ -60,13 +64,12 @@
 
 }
 
-@media only screen and (max-width: 979px) and (min-width: 768px) {
+@media only screen and (max-width: 979px) and (min-width: 767px) {
   .table-grid {
   	flex-wrap: wrap;
   }	
 
   .table-grid-item {
-
   	width: 50%;
   }
 }

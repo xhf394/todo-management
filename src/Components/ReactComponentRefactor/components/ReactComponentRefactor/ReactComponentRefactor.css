@@ -20,6 +20,8 @@ img {
   top: 0px;
   left: 0px;
   right: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
   /**box-shadow: 0 0 2px rgba(0,0,0,.35);**/
   margin-bottom: 20px;
   position: -webkit-sticky;
@@ -67,6 +69,10 @@ img {
 }
 
 /**responsive page media query**/
+/**extra small width**/
+@media only screen and (max-width: ) {
+  
+}
 /**small width 768px**/
 @media only screen and (max-width: 768px) {
   .nasa-wrapper {
@@ -78,6 +84,7 @@ img {
   }
 
   /**intro transition**/
+  /**logo change && position change**/
   .header-intro {
     opacity: 0;
     display: none;
@@ -94,6 +101,12 @@ img {
     justify-content: space-between;
     align-items: center;
     padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .input-counter {
+    opacity: 0;
+    display: none;
   }
 }
 

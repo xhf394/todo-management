@@ -18,3 +18,13 @@
   font-weight: bold;
   color: #000;
 }
+
+/**sort button reponsive in mobile version**/
+/**fix overflow issue of table sort button**/
+
+@media only screen and (max-width: 576px) {
+  .button-primary {
+  	padding: 10px;
+  }
+
+}

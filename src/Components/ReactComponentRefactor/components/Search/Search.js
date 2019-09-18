@@ -17,14 +17,14 @@ class Search extends Component {
     <div className='input-wrapper'>
       <div className='header-wrapper'>
         <p className='header-intro'>NASA <u>IMAGES </u> Search Engine </p>
-        <p className='header-intro-mobile'> S/ </p>
+        <p className='header-intro-mobile'> Search </p>
         <form onSubmit={onSubmit}>
           <div className='input-form-wrapper'>
             <input 
               onChange={onChange}
               //value={value}
               className='input-text'
-              placeholder='Key Words, Title, Name, Place, Date'
+              placeholder='Key Words'
             />
             <button className='search-btn' type='submit'> 
               {children}

@@ -4,12 +4,17 @@ body {
   font-family: Neutral Regular\ 3,NeutralBP,Neutral BP,Helvetica,Arial,sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .App {
-  min-width: 556px;
+  /**min-width: 556px;**/
 }
 /**Navigation**/
 
 /**Header height**/
+
 
 
 

@@ -7,7 +7,8 @@ input, button {
 /**general style**/
 .input-wrapper {
   padding-left: 40px;
-  padding-right: 40px;	
+  padding-right: 40px;
+  margin-top: 42px;	
 }
 
 .search-btn {
@@ -19,7 +20,7 @@ input, button {
 }
 
 .input-text {
-  padding-left: 20px;
+  /**padding-left: 20px;**/
   font-size: 16px;
   flex-grow: 1;
 }
@@ -53,6 +54,7 @@ input, button {
   .input-wrapper {
     padding-left: 20px;
     padding-right: 20px;
+    margin-top: 20px;
   }
 
   .input-form-wrapper {
@@ -62,8 +64,9 @@ input, button {
 
   .input-text {
   	height: 50px;
-  	padding-right: 30px;
+  	/**padding-right: 30px;**/
     font-size: 15px;
+    width:100%;
   }
 }
 
