@@ -28,7 +28,7 @@ input, button {
 .input-form-wrapper {
   display: flex;
   justify-content: space-between;
-  min-height: 50px;
+  min-height: 50px;                                     
   border: 2px solid #e6e5e5;
 }
 
@@ -54,7 +54,7 @@ input, button {
   .input-wrapper {
     padding-left: 20px;
     padding-right: 20px;
-    margin-top: 20px;
+    margin-top: 0px;
   }
 
   .input-form-wrapper {
