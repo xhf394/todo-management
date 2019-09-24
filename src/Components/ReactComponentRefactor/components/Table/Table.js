@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component, useRef, useLayoutEffect, useState } from 'react';
 import { Button, SortButton } from '../Button';
 import { sortBy } from 'lodash';
 import './Table.css';
@@ -24,6 +24,21 @@ const SORTS = {
 //     if( item.title === null) return false; 
 //     return item.title.toLowerCase().includes( searchTerm.toLowerCase() );
 //   }
+
+const TableGrid = (props) => {
+  const targetRef = useRef();
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  //hold the time for setTimeout and clearInterval
+  let movement_timer = null;
+
+  const RESET_TIMEOUT = 100;
+
+  const test_dimensions = () => {
+
+    if(targetRef.current){}
+  }
+}
 
 
 class Table extends Component {

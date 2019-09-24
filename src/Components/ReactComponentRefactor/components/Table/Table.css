@@ -17,8 +17,8 @@
 
 /**table general layout**/
 .table-grid {
-  display: flex;
   flex-wrap: wrap;
+  position: relative;
  
 }
 
@@ -39,7 +39,6 @@
 
 .table-grid-item-pic {
   max-width: 280px;
-  height: 180px;
 }
 
 .table-grid-item-content {

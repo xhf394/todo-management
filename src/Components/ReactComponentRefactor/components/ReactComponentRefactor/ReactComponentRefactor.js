@@ -118,6 +118,7 @@ class ReactComponentRefactor extends Component {
     const { searchText } = this.state;
 
     const el = document.querySelector('.header');
+    const elTable = document.querySelector('.table-grid');
 
     //temporary store searchTerm
     this.setState({ 
@@ -129,6 +130,7 @@ class ReactComponentRefactor extends Component {
     this.fetchTopNASAStories( searchText ); 
 
     window.addEventListener('scroll', this.onScrollFixNav);  
+    //console.log(elTable.clientWidth);
     
   }
 
