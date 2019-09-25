@@ -65,9 +65,8 @@ const TableGrid = (props) => {
       left: left,
       position: 'absolute',
     }
-    
-
-
+    console.log(tableGridItemStyle);
+  }
     return(
       <div className='table-grid' ref={targetRef}>
       {
@@ -93,37 +92,9 @@ const TableGrid = (props) => {
         )
       }
     </div>
-
-
     )
-  }
 
-  return(
-    <div className='table-grid' ref={targetRef}>
-      {
-        sortedList.map(item => 
-          {
-            const { data, links } = item;
-            const {nasa_id, title, secondary_creator, center, date_created } = data[0];
-            const { href } = links[0];
-
-            return (
-              <div key={nasa_id} className='table-grid-item'>
-                <div className='table-grid-item-pic'>
-                  <img src={href} alt=""/>
-                </div>
-                <div className='table-grid-item-content'>
-                  <h4 className='table-grid-item-title'> {title} </h4>
-                  <span className='table-grid-item-center'> {center} </span>
-                  <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
-                </div> 
-              </div> 
-            )
-          }   
-        )
-      }
-    </div>    
-  )
+  
 }
 
 
