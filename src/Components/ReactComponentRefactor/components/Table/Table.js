@@ -28,7 +28,7 @@ const SORTS = {
 const TableGrid = (props) => {
   const targetRef = useRef();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
+  const sortedList = props.sortedList;
   //hold the time for setTimeout and clearInterval
   let movement_timer = null;
 
@@ -36,8 +36,94 @@ const TableGrid = (props) => {
 
   const test_dimensions = () => {
 
-    if(targetRef.current){}
+    if(targetRef.current){
+      let rect = targetRef.current.getBoundingClientRect();
+      setDimensions({
+        width: targetRef.current.offsetWidth,
+        height: targetRef.current.offsetHeight
+      })
+    }
   }
+
+  useLayoutEffect(() => {
+    test_dimensions();
+  }, []);
+
+  window.addEventListener("resize", () => {
+    clearInterval(movement_timer);
+    movement_timer = setTimeout(test_dimensions, RESET_TIMEOUT);
+  })
+  
+  
+
+  for(let i = 0; i < sortedList.length; i++) {
+    let width = dimensions.width;
+    const left = (i % 4) * 0.25 * width;
+
+    //define style
+    const tableGridItemStyle = {
+      left: left,
+      position: 'absolute',
+    }
+    
+
+
+    return(
+      <div className='table-grid' ref={targetRef}>
+      {
+        sortedList.map(item => 
+          {
+            const { data, links } = item;
+            const {nasa_id, title, secondary_creator, center, date_created } = data[0];
+            const { href } = links[0];
+
+            return (
+              <div key={nasa_id} className='table-grid-item'>
+                <div className='table-grid-item-pic'>
+                  <img src={href} alt=""/>
+                </div>
+                <div className='table-grid-item-content'>
+                  <h4 className='table-grid-item-title'> {title} </h4>
+                  <span className='table-grid-item-center'> {center} </span>
+                  <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
+                </div> 
+              </div> 
+            )
+          }   
+        )
+      }
+    </div>
+
+
+    )
+  }
+
+  return(
+    <div className='table-grid' ref={targetRef}>
+      {
+        sortedList.map(item => 
+          {
+            const { data, links } = item;
+            const {nasa_id, title, secondary_creator, center, date_created } = data[0];
+            const { href } = links[0];
+
+            return (
+              <div key={nasa_id} className='table-grid-item'>
+                <div className='table-grid-item-pic'>
+                  <img src={href} alt=""/>
+                </div>
+                <div className='table-grid-item-content'>
+                  <h4 className='table-grid-item-title'> {title} </h4>
+                  <span className='table-grid-item-center'> {center} </span>
+                  <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
+                </div> 
+              </div> 
+            )
+          }   
+        )
+      }
+    </div>    
+  )
 }
 
 
@@ -117,29 +203,10 @@ class Table extends Component {
           Center
         </SortButton>  
       </div>
-	    <div className='table-grid'>
-	      {sortedList.map(item => 
-            {
-	      	    const { data, links } = item;
-              const {nasa_id, title, secondary_creator, center, date_created } = data[0];
-              const { href } = links[0];
 
-              return (
-                <div key={nasa_id} className='table-grid-item'>
-                  <div className='table-grid-item-pic'>
-                      <img src={href} alt=""/>
-                  </div>
-                  <div className='table-grid-item-content'>
-                    <h4 className='table-grid-item-title'> {title} </h4>
-                    <span className='table-grid-item-center'> {center} </span>
-                    <span className='table-grid-item-date'> {date_created} </span>
-                  </div> 
-                </div> 
-              )
-            }   
-	      	)
-	      }
-	    </div>
+      <TableGrid
+        sortedList={sortedList}
+      />
 	  </div>
 	)
   }
