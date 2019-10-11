@@ -18,8 +18,7 @@
 /**table general layout**/
 .table-grid {
   flex-wrap: wrap;
-  position: relative;
- 
+  position: relative; 
 }
 
 .table-grid-item {

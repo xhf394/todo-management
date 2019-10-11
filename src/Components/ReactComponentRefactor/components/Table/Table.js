@@ -54,20 +54,36 @@ const TableGrid = (props) => {
     movement_timer = setTimeout(test_dimensions, RESET_TIMEOUT);
   })
   
-  console.log(dimensions.width);
-  
   let arr = [];
+  const tableGridStyle = ['table-grid'];
 
   for(let i = 0; i < sortedList.length; i++) {
     
     let width = dimensions.width;
-    const left = (i % 4) * 0.25 * width;
+    let height;
+    let left;
+    let top;
 
-    //define style
-    const tableGridItemStyle = {
-      left: left,
-      position: 'absolute',
+    //define style array
+
+
+    const tableGridItemStyle = ['table-grid-item']; 
+
+    const tableGridItemStyleWithPosition = {};
+    //large size left position
+    if(width <= 1360 && width >= 923 ) {
+      
+      left = (i % 4) * 0.25 * width;
+      tableGridItemStyleWithPosition = {
+        left: left,
+        position: 'absolute',
+      }
+
     }
+    
+    //middle size position
+
+    
     //need to deal with each item
     const { data, links } = sortedList[i];
     const {nasa_id, title, secondary_creator, center, date_created } = data[0];
@@ -77,7 +93,7 @@ const TableGrid = (props) => {
     console.log(i);
 
     arr.push(
-      <div key={nasa_id} style= {tableGridItemStyle} className='table-grid-item'>
+      <div key={nasa_id} style={tableGridItemStyleWithPosition} className={tableGridItemStyle.join(' ')}>
         <img src={href} alt="" />
       </div>
       )
@@ -87,36 +103,12 @@ const TableGrid = (props) => {
 
   console.log(arr);
 
-  return arr;
+  return( 
+    <div ref={targetRef} className={tableGridStyle.join(' ')}>    
+    {arr}
+    </div>
+    )
 
-    // return(
-    //   <div className='table-grid' ref={targetRef}>
-    //   {
-    //     sortedList.map(item => 
-    //       {
-    //         const { data, links } = item;
-    //         const {nasa_id, title, secondary_creator, center, date_created } = data[0];
-    //         const { href } = links[0];
-
-    //         return (
-    //           <div key={nasa_id} className='table-grid-item'>
-    //             <div className='table-grid-item-pic'>
-    //               <img src={href} alt=""/>
-    //             </div>
-    //             <div className='table-grid-item-content'>
-    //               <h4 className='table-grid-item-title'> {title} </h4>
-    //               <span className='table-grid-item-center'> {center} </span>
-    //               <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
-    //             </div> 
-    //           </div> 
-    //         )
-    //       }   
-    //     )
-    //   }
-    // </div>
-    // )
-
-  
 }
 
 
@@ -208,3 +200,31 @@ class Table extends Component {
 
 
 export default Table;
+
+
+    // return(
+    //   <div className='table-grid' ref={targetRef}>
+    //   {
+    //     sortedList.map(item => 
+    //       {
+    //         const { data, links } = item;
+    //         const {nasa_id, title, secondary_creator, center, date_created } = data[0];
+    //         const { href } = links[0];
+
+    //         return (
+    //           <div key={nasa_id} className='table-grid-item'>
+    //             <div className='table-grid-item-pic'>
+    //               <img src={href} alt=""/>
+    //             </div>
+    //             <div className='table-grid-item-content'>
+    //               <h4 className='table-grid-item-title'> {title} </h4>
+    //               <span className='table-grid-item-center'> {center} </span>
+    //               <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
+    //             </div> 
+    //           </div> 
+    //         )
+    //       }   
+    //     )
+    //   }
+    // </div>
+    // )  
