@@ -54,9 +54,12 @@ const TableGrid = (props) => {
     movement_timer = setTimeout(test_dimensions, RESET_TIMEOUT);
   })
   
+  console.log(dimensions.width);
   
+  let arr = [];
 
   for(let i = 0; i < sortedList.length; i++) {
+    
     let width = dimensions.width;
     const left = (i % 4) * 0.25 * width;
 
@@ -65,34 +68,53 @@ const TableGrid = (props) => {
       left: left,
       position: 'absolute',
     }
+    //need to deal with each item
+    const { data, links } = sortedList[i];
+    const {nasa_id, title, secondary_creator, center, date_created } = data[0];
+    const { href } = links[0];
+    
     console.log(tableGridItemStyle);
-  }
-    return(
-      <div className='table-grid' ref={targetRef}>
-      {
-        sortedList.map(item => 
-          {
-            const { data, links } = item;
-            const {nasa_id, title, secondary_creator, center, date_created } = data[0];
-            const { href } = links[0];
+    console.log(i);
 
-            return (
-              <div key={nasa_id} className='table-grid-item'>
-                <div className='table-grid-item-pic'>
-                  <img src={href} alt=""/>
-                </div>
-                <div className='table-grid-item-content'>
-                  <h4 className='table-grid-item-title'> {title} </h4>
-                  <span className='table-grid-item-center'> {center} </span>
-                  <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
-                </div> 
-              </div> 
-            )
-          }   
-        )
-      }
-    </div>
-    )
+    arr.push(
+      <div key={nasa_id} style= {tableGridItemStyle} className='table-grid-item'>
+        <img src={href} alt="" />
+      </div>
+      )
+  }
+
+
+
+  console.log(arr);
+
+  return arr;
+
+    // return(
+    //   <div className='table-grid' ref={targetRef}>
+    //   {
+    //     sortedList.map(item => 
+    //       {
+    //         const { data, links } = item;
+    //         const {nasa_id, title, secondary_creator, center, date_created } = data[0];
+    //         const { href } = links[0];
+
+    //         return (
+    //           <div key={nasa_id} className='table-grid-item'>
+    //             <div className='table-grid-item-pic'>
+    //               <img src={href} alt=""/>
+    //             </div>
+    //             <div className='table-grid-item-content'>
+    //               <h4 className='table-grid-item-title'> {title} </h4>
+    //               <span className='table-grid-item-center'> {center} </span>
+    //               <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
+    //             </div> 
+    //           </div> 
+    //         )
+    //       }   
+    //     )
+    //   }
+    // </div>
+    // )
 
   
 }
