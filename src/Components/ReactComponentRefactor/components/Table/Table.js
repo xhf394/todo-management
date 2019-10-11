@@ -74,6 +74,7 @@ const TableGrid = (props) => {
     if(width <= 1360 && width >= 923 ) {
       
       left = (i % 4) * 0.25 * width;
+      
       tableGridItemStyleWithPosition = {
         left: left,
         position: 'absolute',
