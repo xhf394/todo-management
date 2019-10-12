@@ -1,4 +1,4 @@
-import React, { Component, useRef, useLayoutEffect, useState } from 'react';
+import React, { Component, useRef, useLayoutEffect, useState, useCallback } from 'react';
 import { Button, SortButton } from '../Button';
 import { sortBy } from 'lodash';
 import './Table.css';
@@ -28,6 +28,7 @@ const SORTS = {
 const TableGrid = (props) => {
   const targetRef = useRef();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [heights, setHeights] =useState([]);
   const sortedList = props.sortedList;
   //hold the time for setTimeout and clearInterval
   let movement_timer = null;
@@ -53,63 +54,59 @@ const TableGrid = (props) => {
     clearInterval(movement_timer);
     movement_timer = setTimeout(test_dimensions, RESET_TIMEOUT);
   })
-  
-  let arr = [];
-  const tableGridStyle = ['table-grid'];
-
-  for(let i = 0; i < sortedList.length; i++) {
-    
-    let width = dimensions.width;
-    let height;
-    let left;
-    let top;
-
-    //define style array
-
-
-    const tableGridItemStyle = ['table-grid-item']; 
-
-    const tableGridItemStyleWithPosition = {};
-    //large size left position
-    if(width <= 1360 && width >= 923 ) {
-      
-      left = (i % 4) * 0.25 * width;
-      
-      tableGridItemStyleWithPosition = {
-        left: left,
-        position: 'absolute',
-      }
-
+   
+  const measuredRef = useCallback(node => {
+    if (node !== null) {
+      let rect = node.getBoundingClientRect()
+      setHeights([...heights, rect.bottom - rect.top]);
     }
-    
-    //middle size position
+  }, [])
 
-    
-    //need to deal with each item
-    const { data, links } = sortedList[i];
-    const {nasa_id, title, secondary_creator, center, date_created } = data[0];
-    const { href } = links[0];
-    
-    console.log(tableGridItemStyle);
-    console.log(i);
-
-    arr.push(
-      <div key={nasa_id} style={tableGridItemStyleWithPosition} className={tableGridItemStyle.join(' ')}>
-        <img src={href} alt="" />
-      </div>
-      )
-  }
-
-
-
-  console.log(arr);
-
-  return( 
+  //height needs caculate
+  let totalHeight;
+  let itemheight=[];
+  const tableGridStyle = ['table-grid'];
+  let width = dimensions.width;
+  
+  console.log(heights);
+  return(
     <div ref={targetRef} className={tableGridStyle.join(' ')}>    
-    {arr}
-    </div>
-    )
+      {sortedList.map((item, itemIndex) => {
+        let left;
+        let top;
+        let tableGridItemStyleWithPosition = {};
+        const tableGridItemStyle = ['table-grid-item'];
 
+        //large size left position
+        if( width <= 1360 && width >= 923 ) {
+          left = (itemIndex % 4) * 0.25 * width;
+          tableGridItemStyleWithPosition = {
+            left: left,
+            position: 'absolute'
+          }
+        }
+
+        //need to deal with each item
+        const { data, links } = item;
+        const {nasa_id, title, secondary_creator, center, date_created } = data[0];
+        const { href } = links[0];
+
+        return(
+          <div key={nasa_id} style={tableGridItemStyleWithPosition} className={tableGridItemStyle.join(' ')} ref={measuredRef} >
+            <div className='table-grid-item-pic'>
+              <img src={href} alt=""/>
+            </div>
+            <div className='table-grid-item-content'>
+              <h4 className='table-grid-item-title'> {title} </h4>
+              <span className='table-grid-item-center'> {center} </span>
+              <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
+            </div>
+          </div>
+        )
+        })
+      }
+    </div>
+  )
 }
 
 
