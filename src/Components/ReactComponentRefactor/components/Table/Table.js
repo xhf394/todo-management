@@ -30,6 +30,7 @@ const TableGrid = (props) => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [heights, setHeights] =useState([]);
   const sortedList = props.sortedList;
+  let itemheight=[];
   //hold the time for setTimeout and clearInterval
   let movement_timer = null;
 
@@ -57,14 +58,14 @@ const TableGrid = (props) => {
    
   const measuredRef = useCallback(node => {
     if (node !== null) {
-      let rect = node.getBoundingClientRect()
-      setHeights([...heights, rect.bottom - rect.top]);
+      let height = Math.round(node.getBoundingClientRect().height);
+      setHeights([...heights, height]);
     }
-  }, [])
+  }, []);
 
   //height needs caculate
   let totalHeight;
-  let itemheight=[];
+  
   const tableGridStyle = ['table-grid'];
   let width = dimensions.width;
   
@@ -93,10 +94,10 @@ const TableGrid = (props) => {
 
         return(
           <div key={nasa_id} style={tableGridItemStyleWithPosition} className={tableGridItemStyle.join(' ')} ref={measuredRef} >
-            <div className='table-grid-item-pic'>
+            <div className='table-grid-item-pic'  >
               <img src={href} alt=""/>
             </div>
-            <div className='table-grid-item-content'>
+            <div className='table-grid-item-content'  >
               <h4 className='table-grid-item-title'> {title} </h4>
               <span className='table-grid-item-center'> {center} </span>
               <span className='table-grid-item-date'> {date_created} {dimensions.width} </span>
