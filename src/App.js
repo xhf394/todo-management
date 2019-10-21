@@ -8,10 +8,10 @@ import './App.css';
 
 
 
-const App = () => (
+const App = ({gridItems}) => (
   <div className='App'>
     <div>
-      <ReactComponentRefactor />
+      <ReactComponentRefactor gridItems={gridItems} />
     </div>
   </div>
 );

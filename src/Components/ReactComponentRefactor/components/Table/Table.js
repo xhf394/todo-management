@@ -4,6 +4,7 @@ import { sortBy } from 'lodash';
 import './Table.css';
 
 
+
 //a list of Fn used to sort list
 const SORTS = {
   //A default list should be defined, not sorted
@@ -24,6 +25,27 @@ const SORTS = {
 //     if( item.title === null) return false; 
 //     return item.title.toLowerCase().includes( searchTerm.toLowerCase() );
 //   }
+
+const updatedHeightListState = (index, height, sortedList) => 
+  (prevState) => {
+
+    const { heights } = prevState;
+
+    const length = sortedList.length;
+
+    const oldHeights = heights
+                     ? heights
+                     : new Array(length).fill(0);
+    
+    //heights[index] = height && heights && index ? height : 0;                
+
+    // const updatedHeights = [
+    //   ...oldHeights,
+    //   ...heights
+    // ];
+
+    return oldHeights;
+  }
 
 const TableGrid = (props) => {
   const targetRef = useRef();
@@ -55,14 +77,27 @@ const TableGrid = (props) => {
     clearInterval(movement_timer);
     movement_timer = setTimeout(test_dimensions, RESET_TIMEOUT);
   })
-   
+  
+  let updatedHeightList = [];
+
   const measuredRef = useCallback(node => {
+
     if (node !== null) {
       let height = Math.round(node.getBoundingClientRect().height);
-      setHeights([...heights, height]);
-    }
-  }, []);
+      console.log(node.getAttribute('index'));
+      let index = node.getAttribute('index');     
+      console.log(height);
 
+      //updatedHeightList[index] = height;
+
+      setHeights(
+        updatedHeightListState(index, height, sortedList)
+      );
+    }
+
+  }, []);
+  
+  //console.log(updatedHeightList)
   //height needs caculate
   let totalHeight;
   
@@ -92,8 +127,10 @@ const TableGrid = (props) => {
         const {nasa_id, title, secondary_creator, center, date_created } = data[0];
         const { href } = links[0];
 
+        //setHeights(height[itemIndex] = itemIndex);
+
         return(
-          <div key={nasa_id} style={tableGridItemStyleWithPosition} className={tableGridItemStyle.join(' ')} ref={measuredRef} >
+          <div key={nasa_id} style={tableGridItemStyleWithPosition} className={tableGridItemStyle.join(' ')} index={itemIndex} ref={measuredRef} >
             <div className='table-grid-item-pic'  >
               <img src={href} alt=""/>
             </div>
