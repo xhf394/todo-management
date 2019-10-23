@@ -104,6 +104,8 @@ const TableGrid = (props) => {
   const tableGridStyle = ['table-grid'];
   let width = dimensions.width;
   
+  //based on width to define columns of rendering list
+
   console.log(heights);
   return(
     <div ref={targetRef} className={tableGridStyle.join(' ')}>    
