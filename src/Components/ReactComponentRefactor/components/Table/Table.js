@@ -38,7 +38,7 @@ const updatedHeightListState = (index, height, sortedList) =>
                      : new Array(length).fill(0);
     
     //heights[index] = height && heights && index ? height : 0;                
-
+    oldHeights[index] = height;
     // const updatedHeights = [
     //   ...oldHeights,
     //   ...heights
