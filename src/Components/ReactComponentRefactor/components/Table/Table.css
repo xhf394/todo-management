@@ -18,8 +18,8 @@
 /**table general layout**/
 .table-grid {
   display: flex;
-  flex-wrap: wrap;
- 
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 .table-grid-item {
@@ -33,13 +33,12 @@
   margin-bottom: 40px;
   color: #999;
   text-align: left;
-  width: 25%;
+/*  width: 25%;*/
   transition: all 1s linear;
 }
 
 .table-grid-item-pic {
   max-width: 280px;
-  height: 180px;
 }
 
 .table-grid-item-content {
@@ -71,11 +70,12 @@
 
 @media only screen and (max-width: 979px) and (min-width: 767px) {
   .table-grid {
-  	flex-wrap: wrap;
+  /*	flex-wrap: wrap;*/
+    justify-content: space-around;
   }	
 
   .table-grid-item {
-  	width: 50%;
+  	/*width: 50%;*/
   }
 }
 
