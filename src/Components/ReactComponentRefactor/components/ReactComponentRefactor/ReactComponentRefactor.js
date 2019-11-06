@@ -10,7 +10,7 @@ import {
   PARAM_PAGE	
 } from '../../constants';
 
-import { Search } from '../Search';
+import { Search, SearchInactive } from '../Search';
 import { Table } from '../Table';
 import { MoreButtonWithConditionalRendering } from '../Button';
 
@@ -93,10 +93,10 @@ class ReactComponentRefactor extends Component {
       isAddingPageNASA: true,
       //hover state inital false
       isHover: false,
-
       sticky: null,
       scroll: null,
-
+      //redirect search 
+      isRedirecting: false,
   	}
     
     //bind all methods;
@@ -135,7 +135,10 @@ class ReactComponentRefactor extends Component {
   //fetch data with API
   fetchTopNASAStories( searchText, page = 1 ){
     //when fetch data, set loading as true;
-    this.setState({isLoadingNASA: true});
+    this.setState({
+      isLoadingNASA: true,
+    });
+
 
     const { resultsNASA, searchKeyText } = this.state;
     
@@ -178,6 +181,7 @@ class ReactComponentRefactor extends Component {
     this.setState({ 
       searchKeyText: searchText,
       isLoadingNASA: true,
+      isRedirecting: true,
     });
 
 
@@ -260,7 +264,8 @@ class ReactComponentRefactor extends Component {
       searchKeyText,
       isLoadingNASA,
       isAddingPageNASA,
-      isHover, 
+      isHover,
+      isRedirecting, 
       sticky,
       scroll,
     } = this.state;
@@ -293,7 +298,7 @@ class ReactComponentRefactor extends Component {
 
     const loadButtonStyle = ['btn-load-more'];
     
-    const headerStyle = ['header'];
+    const headerStyle = ['header', 'active-header'];
     if( isHover ) {
       loadButtonStyle.push('btn-load-more-active')
     }
@@ -301,22 +306,32 @@ class ReactComponentRefactor extends Component {
     if( scroll >= sticky) {
       headerStyle.push('header-sticky');
     }
+    console.log(sticky);
 
     return (
   	  <div className='nasa-wrapper'>
 
-        <div className={headerStyle.join(' ')} id='topAnchor' >
-         
-        
-        <Search
-          onChange={this.onSearchChange}
-          onSubmit={this.onSearchSubmit}
-          value={searchText}
-          totalHits={totalHits}
-        >         
-        </Search>
-
-        </div>
+        {isRedirecting 
+        	?
+          (<div className={headerStyle.join(' ')} id='topAnchor' >        
+            <Search
+              onChange={this.onSearchChange}
+              onSubmit={this.onSearchSubmit}
+              value={searchText}
+              totalHits={totalHits}
+            >          
+            </Search>
+          </div>)
+          :
+          (<div className='header inactive-header' >
+          	<SearchInactive 
+              onChange={this.onSearchChange}
+              onSubmit={this.onSearchSubmit}
+              value={searchText}
+              totalHits={totalHits}
+          	/>
+          	test
+          	</div>)}  
         
         {resultsNASA &&
          resultsNASA[searchKeyText] &&

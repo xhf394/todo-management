@@ -1,0 +1,91 @@
+/**remove default style**/
+input, button {
+	border: none;
+	outline: none;
+}
+
+/**general style**/
+.inactive-input-wrapper {
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-top: 42px;	
+}
+
+.inactive-search-btn {
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  min-width: 60px;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMyIgaGVpZ2h0PSIyNyI+PHBhdGggZmlsbD0iI0U1RTVFNSIgZD0iTTEwIDJjNC40MSAwIDggMy41OSA4IDhzLTMuNTkgOC04IDgtOC0zLjU5LTgtOCAzLjU5LTggOC04bTAtMkM0LjQ3NyAwIDAgNC40NzcgMCAxMGMwIDUuNTIgNC40NzcgMTAgMTAgMTAgNS41MiAwIDEwLTQuNDggMTAtMTAgMC01LjUyMy00LjQ4LTEwLTEwLTEweiIvPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0U1RTVFNSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIGQ9Ik0yMiAyNmwtNy05Ii8+PC9zdmc+")
+}
+
+.inactive-input-text {
+  /**padding-left: 20px;**/
+  font-size: 16px;
+  flex-grow: 1;
+}
+
+.inactive-input-form-wrapper {
+  display: flex;
+  justify-content: space-between;
+  min-height: 50px;                                     
+  border: 2px solid #e6e5e5;
+}
+
+.inactive-input-counter {
+  display: block;
+  color: #bbbdbf;
+  line-height: 35px;
+  font-size: 13px;
+  margin-top: 20px;
+  border-top: 1px solid #e6e5e5;
+  text-align: center;
+}
+
+.inactive-header-intro-mobile {
+  opacity: 0;
+  display: none;
+}
+/**responsive page media query**/
+
+/**small width 768px**/
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 15px;
+    line-height: 26px;
+  }	
+  
+  /**flex layout**/
+  .inactive-input-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 0px;
+  }
+
+  .inactive-input-form-wrapper {
+    position: relative;
+  } 
+  
+
+  .inactive-input-text {
+  	height: 50px;
+  	/**padding-right: 30px;**/
+    font-size: 15px;
+    width:100%;
+  }
+
+  .inactive-header-intro-mobile {
+    opacity: 1;
+    display: block;
+    margin: 0px;
+  }
+}
+
+/**medium width 768px to 979px**/
+
+@media (min-width: 768px) and (max-width: 979px) {   
+  }
+
+/**large width 979px**/
+@media (max-width: 979px){
+}

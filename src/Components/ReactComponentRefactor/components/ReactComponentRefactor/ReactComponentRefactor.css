@@ -17,6 +17,7 @@ img {
   cursor: pointer;
 }
 
+/*header general style*/
 .header {
   top: 0px;
   left: 0px;
@@ -24,7 +25,13 @@ img {
   padding-left: 20px;
   padding-right: 20px;
   /**box-shadow: 0 0 2px rgba(0,0,0,.35);**/
-  margin-bottom: 20px;
+  margin-bottom: 20px;  
+  
+}
+
+/*style for active header*/
+.active-header {
+  margin-top: 42px;
   position: -webkit-sticky;
   position: sticky;
   background-color: white;
@@ -33,6 +40,18 @@ img {
 
 .header-sticky{
   box-shadow: 0 0 10px rgba(0,0,0, .35);
+}
+
+/*style for inactive header*/
+
+.inactive-header {
+  padding-top: 66px;
+  padding-bottom: 66px;
+  max-height: 500px;
+  min-height: 380px;
+  color: white;
+  background-image: url('https://i.imgur.com/MvOqrCM.jpg');
+  font: 35px/45px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
 }
 
 .header-intro {

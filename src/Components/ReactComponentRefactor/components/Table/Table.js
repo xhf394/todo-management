@@ -146,7 +146,7 @@ const TableGrid = (props) => {
   }
   
   //mid page
-  else if(dimensions.width >= 727 && dimensions.width <= 939) {
+  else if(dimensions.width >= 710 && dimensions.width <= 939) {
     sortedList1 = sortedList.filter((item, itemIndex) => { return itemIndex % 2 === 0 });
     sortedList2 = sortedList.filter((item, itemIndex) => { return itemIndex % 2 === 1 });
 
@@ -181,7 +181,7 @@ const TableGrid = (props) => {
   }
   
   //small page
-  else if(dimensions.width <= 726) {
+  else if(dimensions.width <= 709) {
     
     return(
       <div ref={targetRef} className='table-grid'>
