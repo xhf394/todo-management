@@ -23,13 +23,15 @@ input, button {
   /**padding-left: 20px;**/
   font-size: 16px;
   flex-grow: 1;
+  padding: 15px;
 }
 
 .inactive-input-form-wrapper {
   display: flex;
   justify-content: space-between;
-  min-height: 50px;                                     
-  border: 2px solid #e6e5e5;
+  min-height: 50px; 
+  border-radius: 3px;
+  overflow: hidden;                                    
 }
 
 .inactive-input-counter {
@@ -42,16 +44,12 @@ input, button {
   text-align: center;
 }
 
-.inactive-header-intro-mobile {
-  opacity: 0;
-  display: none;
-}
 /**responsive page media query**/
 
 /**small width 768px**/
 @media only screen and (max-width: 768px) {
   body {
-    font-size: 15px;
+    font-size: 14px;
     line-height: 26px;
   }	
   
@@ -72,12 +70,6 @@ input, button {
   	/**padding-right: 30px;**/
     font-size: 15px;
     width:100%;
-  }
-
-  .inactive-header-intro-mobile {
-    opacity: 1;
-    display: block;
-    margin: 0px;
   }
 }
 

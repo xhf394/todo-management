@@ -15,6 +15,8 @@ import { Table } from '../Table';
 import { MoreButtonWithConditionalRendering } from '../Button';
 
 import './ReactComponentRefactor.css';
+  //fixed search bar
+
 
 
   //update results state for rendering
@@ -299,12 +301,15 @@ class ReactComponentRefactor extends Component {
     const loadButtonStyle = ['btn-load-more'];
     
     const headerStyle = ['header', 'active-header'];
+
+    let searchBarStyle = ['inactive-search-bar'];
+
     if( isHover ) {
-      loadButtonStyle.push('btn-load-more-active')
+      loadButtonStyle.push('btn-load-more-active');
     }
 
-    if( scroll >= sticky) {
-      headerStyle.push('header-sticky');
+    if( scroll >= 66 ) {
+      searchBarStyle = ['search-bar-fixed'];
     }
     console.log(sticky);
 
@@ -330,8 +335,17 @@ class ReactComponentRefactor extends Component {
               value={searchText}
               totalHits={totalHits}
           	/>
-          	test
-          	</div>)}  
+            <div className={searchBarStyle.join(' ')}>
+              <FixedSearchBar
+              onChange={this.onSearchChange}
+              onSubmit={this.onSearchSubmit}
+              value={searchText}
+              totalHits={totalHits}
+              
+              >
+              </FixedSearchBar>
+            </div>  
+          </div>)}  
         
         {resultsNASA &&
          resultsNASA[searchKeyText] &&
@@ -360,13 +374,28 @@ class ReactComponentRefactor extends Component {
             Load More
           </MoreButtonWithConditionalRendering>
         </div>
-
-        <a href="#topAnchor" className="top-link">
-         Top 
-        </a>
   	  </div>
   	)    
   }
+}
+
+ const FixedSearchBar = ({onSubmit, onChange, value, totalHits,children}) => {
+
+  return(
+    <form onSubmit={onSubmit}>
+      <div className=''>
+        <input 
+          onChange={onChange}
+          //value={value}
+          className=''
+          placeholder='Key Words'
+        />
+        <button className='' type='submit'> 
+          {children}
+        </button>
+      </div>
+    </form>
+  )
 }
 
 export { ReactComponentRefactor };

@@ -16,8 +16,7 @@ class Search extends Component {
 	return (
     <div className='inactive-input-wrapper'>
       <div className='inactive-header-wrapper'>
-        <p className='inactive-header-intro'>NASA <u>IMAGES </u> Search Engine </p>
-        <p className='inactive-header-intro-mobile'> Search </p>
+        <p className='inactive-header-intro'>Our Conquest is the Sea of Stars </p>
         <form onSubmit={onSubmit}>
           <div className='inactive-input-form-wrapper'>
             <input 
