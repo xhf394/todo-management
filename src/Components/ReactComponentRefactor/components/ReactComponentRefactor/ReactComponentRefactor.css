@@ -48,8 +48,7 @@ img {
   justify-content: center;
   padding-top: 66px;
   padding-bottom: 66px;
-  max-height: 500px;
-  min-height: 380px;
+  height: 500px;
   color: white;
   background-image: url('https://i.imgur.com/MvOqrCM.jpg');
   font: 35px/45px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
@@ -62,7 +61,15 @@ img {
 .search-bar-fixed {
   opacity: 1;
   position: fixed;
-  background-color: darkgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #232a34;
+  min-height: 58px;
+  box-shadow: 0 0 10px rgba(0,0,0, .35);
 }
 
 .header-intro {

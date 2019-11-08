@@ -10,7 +10,7 @@ import {
   PARAM_PAGE	
 } from '../../constants';
 
-import { Search, SearchInactive } from '../Search';
+import { Search, SearchInactive, FixedSearchBar } from '../Search';
 import { Table } from '../Table';
 import { MoreButtonWithConditionalRendering } from '../Button';
 
@@ -318,15 +318,20 @@ class ReactComponentRefactor extends Component {
 
         {isRedirecting 
         	?
-          (<div className={headerStyle.join(' ')} id='topAnchor' >        
-            <Search
+          (<div>
+            <div className='search-bar-fixed'>  
+            <FixedSearchBar
               onChange={this.onSearchChange}
               onSubmit={this.onSearchSubmit}
               value={searchText}
-              totalHits={totalHits}
-            >          
-            </Search>
-          </div>)
+              totalHits={totalHits}              
+            >
+            </FixedSearchBar>
+            </div>
+            <div style={{paddingTop: '80px'}}>
+              {searchKeyText} Photos
+            </div>            
+            </div>)
           :
           (<div className='header inactive-header' >
           	<SearchInactive 
@@ -379,24 +384,7 @@ class ReactComponentRefactor extends Component {
   }
 }
 
- const FixedSearchBar = ({onSubmit, onChange, value, totalHits,children}) => {
-
-  return(
-    <form onSubmit={onSubmit}>
-      <div className=''>
-        <input 
-          onChange={onChange}
-          //value={value}
-          className=''
-          placeholder='Key Words'
-        />
-        <button className='' type='submit'> 
-          {children}
-        </button>
-      </div>
-    </form>
-  )
-}
+ 
 
 export { ReactComponentRefactor };
 

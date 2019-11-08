@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './SearchInactive.css';
 
-class Search extends Component {
+class SearchInactive extends Component {
   
   render() {
     const {
@@ -37,4 +37,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default SearchInactive;
