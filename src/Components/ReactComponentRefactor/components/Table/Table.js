@@ -37,7 +37,6 @@ const TableGridItem = ({item}) => {
       </div>
       <div className='table-grid-item-content'>
         <h4 className='table-grid-item-title'> {title} </h4>
-        <span className='table-grid-item-center'> {center} </span>
         <span className='table-grid-item-date'> {date_created} </span>
       </div> 
     </div>

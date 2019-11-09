@@ -17,61 +17,6 @@ img {
   cursor: pointer;
 }
 
-/*header general style*/
-.header {
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
-  
-}
-
-/*style for active header*/
-.active-header {
-  margin-top: 42px;
-  position: -webkit-sticky;
-  position: sticky;
-  background-color: white;
-  font: 42px/65px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
-  margin-bottom: 20px;  
-}
-
-.header-sticky{
-  box-shadow: 0 0 10px rgba(0,0,0, .35);
-}
-
-/*style for inactive header*/
-
-.inactive-header {
-  display: flex;
-  justify-content: center;
-  padding-top: 66px;
-  padding-bottom: 66px;
-  height: 500px;
-  color: white;
-  background-image: url('https://i.imgur.com/MvOqrCM.jpg');
-  font: 35px/45px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
-}
-
-.inactive-search-bar {
-  opacity: 0;
-  display: none;
-}
-.search-bar-fixed {
-  opacity: 1;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #232a34;
-  min-height: 58px;
-  box-shadow: 0 0 10px rgba(0,0,0, .35);
-}
-
 .header-intro {
   /**max-width: 1080px;**/
   text-align: center;
@@ -95,6 +40,76 @@ img {
   text-decoration: none;
 }
 
+/*header general style*/
+.header {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  padding-left: 20px;
+  padding-right: 20px; 
+}
+
+/*style for active header*/
+.active-header {
+  margin-top: 42px;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: white;
+  font: 42px/65px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
+  margin-bottom: 20px;  
+}
+
+.seach-bar-fixed-headline {
+  font-weight: 600;
+  font-size: 26px;
+  padding-left: 20px;
+  padding-right: 20px; 
+}
+
+.header-sticky{
+  box-shadow: 0 0 10px rgba(0,0,0, .35);
+}
+
+/*style for inactive header*/
+
+.inactive-header {
+  display: flex;
+  justify-content: center;
+  padding-top: 66px;
+  padding-bottom: 66px;
+  height: 500px;
+  color: white;
+  background-image: url('https://i.imgur.com/IpEF5Xb.jpg');
+  font: 35px/45px RomainBPTextRegular,Georgia,Times New Roman,Times,serif;
+}
+
+.inactive-search-bar {
+  opacity: 0;
+  display: none;
+}
+
+.search-bar-fixed {
+  opacity: 1;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #232a34;
+  min-height: 58px;
+  box-shadow: 0 0 10px rgba(0,0,0, .35);
+}
+
+.fixed-search-bar-text {
+  opacity: 0;
+  display: none;
+  color: #fff;
+}
+
+/**loading button style**/
+
 .load-button-wrapper {
   width: 190px;
   margin: 0 auto;
@@ -114,7 +129,6 @@ img {
 /**small width 768px**/
 @media only screen and (max-width: 766px) {
   .nasa-wrapper {
-    text-align: center;
   }    
 
   .nasa-header {
@@ -155,11 +169,24 @@ img {
 /**medium width 768px to 979px**/
 
 @media (min-width: 767px) and (max-width: 979px) {
-    
+  .fixed-search-bar-text {
+    opacity: 1;
+    font-size: 20px;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
   }
+
+}
 
 
 /**large width 979px**/
-@media (max-width: 979px){
-
+@media (min-width: 979px){
+  .fixed-search-bar-text {
+    opacity: 1;
+    font-size: 20px;
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

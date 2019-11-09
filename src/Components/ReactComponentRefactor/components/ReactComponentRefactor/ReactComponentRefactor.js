@@ -320,18 +320,21 @@ class ReactComponentRefactor extends Component {
         	?
           (<div>
             <div className='search-bar-fixed'>  
-            <FixedSearchBar
-              onChange={this.onSearchChange}
-              onSubmit={this.onSearchSubmit}
-              value={searchText}
-              totalHits={totalHits}              
-            >
-            </FixedSearchBar>
+              <FixedSearchBar
+                onChange={this.onSearchChange}
+                onSubmit={this.onSearchSubmit}
+                value={searchText}
+                totalHits={totalHits}              
+              >
+              </FixedSearchBar>
+              <div className='fixed-search-bar-text'>
+                Our Conquest is the Sea of Stars {'\u2734'}
+              </div>
             </div>
-            <div style={{paddingTop: '80px'}}>
+            <h1 className='seach-bar-fixed-headline' style={{paddingTop: '80px'}}>
               {searchKeyText} Photos
-            </div>            
-            </div>)
+            </h1>            
+          </div>)
           :
           (<div className='header inactive-header' >
           	<SearchInactive 
@@ -345,10 +348,12 @@ class ReactComponentRefactor extends Component {
               onChange={this.onSearchChange}
               onSubmit={this.onSearchSubmit}
               value={searchText}
-              totalHits={totalHits}
-              
+              totalHits={totalHits}              
               >
               </FixedSearchBar>
+              <div className='fixed-search-bar-text'>
+                Our Conquest is the Sea of Stars {'\u2734'}
+              </div>
             </div>  
           </div>)}  
         

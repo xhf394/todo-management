@@ -35,23 +35,34 @@
   text-align: left;
 /*  width: 25%;*/
   transition: all 1s linear;
+
 }
 
 .table-grid-item-pic {
   max-width: 280px;
+
 }
 
 .table-grid-item-content {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+  align-items: center; 
 	max-width: 280px;
 }
 
 .table-grid-item-title {
 	text-align: center;
+  color: #353c52;
+  font-family: "Asap",sans-serif;
+  letter-spacing: 0;
+  font-size: 13px;
 }
 
+.table-grid-item-date {
+  font-family: "Asap",sans-serif;
+  color: #5c6f84;
+  font-size: 16px;
+}
 /**responsive page media query**/
 
 /**small width 768px**/
