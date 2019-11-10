@@ -82,7 +82,7 @@
 @media only screen and (max-width: 979px) and (min-width: 767px) {
   .table-grid {
   /*	flex-wrap: wrap;*/
-    justify-content: space-around;
+    justify-content: center;
   }	
 
   .table-grid-item {
