@@ -95,7 +95,6 @@ class ReactComponentRefactor extends Component {
       isAddingPageNASA: true,
       //hover state inital false
       isHover: false,
-      sticky: null,
       scroll: null,
       //redirect search 
       isRedirecting: false,
@@ -119,12 +118,9 @@ class ReactComponentRefactor extends Component {
     //pass searchText as an argument to fetch API; 
     const { searchText } = this.state;
 
-    const el = document.querySelector('.header');
-
     //temporary store searchTerm
     this.setState({ 
       searchKeyText: searchText,
-      sticky: el.offsetTop,
     });
     
     //pass variable to api
@@ -268,7 +264,6 @@ class ReactComponentRefactor extends Component {
       isAddingPageNASA,
       isHover,
       isRedirecting, 
-      sticky,
       scroll,
     } = this.state;
     
@@ -311,7 +306,6 @@ class ReactComponentRefactor extends Component {
     if( scroll >= 66 ) {
       searchBarStyle = ['search-bar-fixed'];
     }
-    console.log(sticky);
 
     return (
   	  <div className='nasa-wrapper'>
