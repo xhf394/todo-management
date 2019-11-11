@@ -16,9 +16,7 @@ import { MoreButtonWithConditionalRendering } from '../Button';
 
 import './ReactComponentRefactor.css';
   //fixed search bar
-
-
-
+ 
   //update results state for rendering
   const updateTopNASAStoriesState = ( items, metadata, page ) =>
     (prevState) => {
